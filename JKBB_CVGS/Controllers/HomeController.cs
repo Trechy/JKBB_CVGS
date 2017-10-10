@@ -36,20 +36,9 @@ namespace JKBB_CVGS.Controllers
             }            
         }
 
-
         public ActionResult Index()
         {
             return View();
-        }
-
-        public ActionResult Game(Models.Game game)
-        {
-            return RedirectToAction("Index", "Game");
-        }
-
-        public ActionResult Event(Models.Event eventItem)
-        {
-            return RedirectToAction("Index", "Event");
         }
     }
 }

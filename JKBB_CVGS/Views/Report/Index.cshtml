@@ -1,0 +1,32 @@
+﻿
+@{
+    ViewBag.Title = "Report";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3>Member List Report</h3> 
+
+  
+<table class="table">
+    <tr>
+        <th>Full Name</th>
+        <th>User Email</th>
+        <th>Item Purchased</th>
+    </tr>            
+    <tr>
+        @foreach (var item in ViewBag.UserNameList)
+        {
+            <td>@item.Value</td>
+        }
+        @foreach (var item in ViewBag.UserEmailList)
+        {
+            <td>@item.Value</td>
+        }
+        @foreach (var item in ViewBag.ItemPurchasedList)
+        {
+            <td>@item.Value</td>
+        }
+    </tr>
+</table>
+
+
