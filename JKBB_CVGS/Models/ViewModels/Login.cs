@@ -19,11 +19,11 @@ namespace JKBB_CVGS.Models.ViewModels
         public bool IsValid(string _email, string _password)
         {
             bool flag = false;
-            string connString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+            string connString = ConfigurationManager.ConnectionStrings["CVGS_Context"].ConnectionString;
             using (SqlConnection conn = new SqlConnection(connString))
             {
                 conn.Open();
-                SqlCommand cmd = new SqlCommand("SELECT COUNT(*) FROM [dbo].[Member] WHERE [Email]='" + _email +
+                SqlCommand cmd = new SqlCommand("SELECT COUNT(*) FROM [dbo].[User] WHERE [Email]='" + _email +
                     "' AND [Password]='" + password + "'", conn);
                 flag = Convert.ToBoolean(cmd.ExecuteScalar());
                 return flag;
