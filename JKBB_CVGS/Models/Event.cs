@@ -18,6 +18,7 @@ namespace JKBB_CVGS.Models
         public string EventName { get; set; }
 
         [DisplayName("Date")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-dd}")]
         public DateTime EventDate { get; set; }
 
         [DisplayName("Description")]

@@ -2,6 +2,7 @@ namespace JKBB_CVGS.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
@@ -18,6 +19,7 @@ namespace JKBB_CVGS.Models
         public string Gender { get; set; }
 
         [Column(TypeName = "date")]
+        [DisplayName("Date of Birth")]
         public DateTime DateOfBirth { get; set; }
 
         [Required]
@@ -34,10 +36,12 @@ namespace JKBB_CVGS.Models
 
         [Required]
         [StringLength(6)]
+        [DisplayName("Postal Code")]
         public string PostalCode { get; set; }
 
         [Required]
         [StringLength(10)]
+        [DisplayName("Phone Number")]
         public string phoneNumber { get; set; }
 
         public virtual User User { get; set; }
