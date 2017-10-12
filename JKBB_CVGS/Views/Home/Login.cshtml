@@ -1,4 +1,4 @@
-﻿@model JKBB_CVGS.Models.User
+﻿@model JKBB_CVGS.Models.ViewModels.LoginSignUp
 
 @{
     ViewBag.Title = "Login";
@@ -9,45 +9,62 @@
 
 <div class="row">
     <div class="col-md-7">
-        @using (Html.BeginForm())
+        @using (Html.BeginForm("SignUp", "Home", FormMethod.Post, new { }))
         {
             @Html.AntiForgeryToken()
 
             <div class="form-horizontal">
                 <h4>Sign up</h4>
                 <hr />
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @if (Request.Form.AllKeys.Contains("signUpForm"))
+                {
+                    @Html.ValidationSummary(true, "Sign Up failed", new { @class = "text-danger" })
+                }
                 <div class="form-group">
-                    @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.LabelFor(model => model.SignUp.Email, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                        @Html.EditorFor(model => model.SignUp.Email, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.SignUp.Email, "", new { @class = "text-danger" })
                     </div>
                 </div>
                 <div class="form-group">
-                    @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.LabelFor(model => model.SignUp.UserName, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                        @Html.EditorFor(model => model.SignUp.UserName, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.SignUp.UserName, "", new { @class = "text-danger" })
                     </div>
                 </div>
                 <div class="form-group">
-                    @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.LabelFor(model => model.SignUp.Password, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                        @Html.EditorFor(p => p.SignUp.Password, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(u => u.SignUp.Password, "", new { @class = "text-danger" })
                     </div>
                 </div>
                 <div class="form-group">
-                    @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                    @Html.LabelFor(model => model.SignUp.ConfirmPassword, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-8">
+                        @Html.EditorFor(p => p.SignUp.ConfirmPassword, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(u => u.SignUp.ConfirmPassword, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.SignUp.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-8">
+                        @Html.EditorFor(p => p.SignUp.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(u => u.SignUp.FirstName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.SignUp.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-8">
+                        @Html.EditorFor(p => p.SignUp.LastName, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(u => u.SignUp.LastName, "", new { @class = "text-danger" })
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Sign Up" class="btn btn-default" />
+                        <input name="signUpForm" type="submit" value="Sign Up" class="btn btn-default" />
                     </div>
                 </div>
             </div>
@@ -56,29 +73,32 @@
     </div>
     <div class="col-md-5">
 
-        @using (Html.BeginForm())
+        @using (Html.BeginForm("Login", "Home", FormMethod.Post, new { }))
         {
             <div class="form-horizontal">
                 <h4>Sign in</h4>
                 <hr />
-                @Html.ValidationSummary(true, "Login failed. Check your login details.")
+                @if (Request.Form.AllKeys.Contains("loginForm"))
+                {
+                    @Html.ValidationSummary(true, "Login failed. Check your login details.", new { @class = "text-danger" })
+                }
                 <div class="form-group">
-                    @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.LabelFor(model => model.Login.Email, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(u => u.Email)
+                        @Html.EditorFor(model => model.Login.Email, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(u => u.Login.Email, "", new { @class = "text-danger" })
                     </div>
                 </div>
                 <div class="form-group">
-                    @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.LabelFor(model => model.Login.Password, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.EditorFor(p => p.Password)
-                        @Html.ValidationMessageFor(u => u.Password)
+                        @Html.EditorFor(p => p.Login.Password, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(u => u.Login.Password, "", new { @class = "text-danger" })
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Sign in" class="btn btn-default" />
+                        <input name="loginForm" type="submit" value="Sign in" class="btn btn-default" />
                     </div>
                 </div>
             </div>

@@ -39,6 +39,8 @@ namespace JKBB_CVGS.Models.ViewModels
         public string UserName { get => userName; set => userName = value; }
         [Required(ErrorMessage = "Email is required")]
         [Display(Name = "Email")]
+        [DataType(DataType.EmailAddress)]
+        [EmailAddress]
         public string Email { get => email; set => email = value; }
 
         [Required(ErrorMessage = "Password is required")]
