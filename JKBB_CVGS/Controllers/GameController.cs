@@ -92,23 +92,6 @@ namespace JKBB_CVGS.Controllers
         // GET: Game/Delete/5
         public ActionResult Delete(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Game game = db.Games.Find(id);
-            if (game == null)
-            {
-                return HttpNotFound();
-            }
-            return View(game);
-        }
-
-        // POST: Game/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
             Game game = db.Games.Find(id);
             db.Games.Remove(game);
             db.SaveChanges();
