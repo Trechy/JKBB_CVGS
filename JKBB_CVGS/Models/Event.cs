@@ -2,7 +2,6 @@ namespace JKBB_CVGS.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
@@ -14,14 +13,10 @@ namespace JKBB_CVGS.Models
 
         [Required]
         [StringLength(25)]
-        [DisplayName("Name")]
         public string EventName { get; set; }
 
-        [DisplayName("Date")]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-dd}")]
         public DateTime EventDate { get; set; }
 
-        [DisplayName("Description")]
         [Required]
         public string Description { get; set; }
     }

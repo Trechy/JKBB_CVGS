@@ -4,9 +4,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h3>Member List Report</h3> 
-
-  
+<h3>Member List Report</h3>   
 <table class="table">
     <tr>
         <th>Full Name</th>
@@ -28,5 +26,45 @@
         }
     </tr>
 </table>
+
+<p></p>
+<h3>Game List Report</h3>
+<table class="table">
+    <tr>
+        <th>Game Title</th>
+        <th>Developer</th>
+        <th>Release Date</th>
+        <th>User Rating</th>
+        <th>Base Price(CAD)</th>
+        <th>Current Discount</th>
+    </tr>
+    <tr>
+        @foreach (var item in ViewBag.GameTitleList)
+        {
+            <td>@item.Value</td>
+        }
+        @foreach (var item in ViewBag.DeveloperList)
+        {
+            <td>@item.Value</td>
+        }
+        @foreach (var item in ViewBag.ReleasedDateList)
+        {
+            <td>@item.Value</td>
+        }
+        @foreach (var item in ViewBag.UserRatingList)
+        {
+            <td>@item.Value</td>
+        }
+        @foreach (var item in ViewBag.BasePriceList)
+        {
+            <td>@item.Value</td>
+        }
+        @foreach (var item in ViewBag.DiscountList)
+        {
+            <td>@item.Value</td>
+        }
+    </tr>
+</table>
+
 
 

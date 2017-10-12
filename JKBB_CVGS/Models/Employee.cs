@@ -11,8 +11,20 @@ namespace JKBB_CVGS.Models
     {
         public int EmployeeID { get; set; }
 
-        public int UserID { get; set; }
+        [Required]
+        [StringLength(50)]
+        public string Email { get; set; }
 
-        public virtual User User { get; set; }
+        [Required]
+        [StringLength(25)]
+        public string Password { get; set; }
+
+        [Required]
+        [StringLength(25)]
+        public string FirstName { get; set; }
+
+        [Required]
+        [StringLength(25)]
+        public string LastName { get; set; }
     }
 }

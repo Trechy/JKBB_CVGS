@@ -1,17 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Configuration;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Web;
 
 namespace JKBB_CVGS.Models.ViewModels
 {
     public class Login
     {
         /// <summary>
-        /// Checks if employee with given password exists in the database
+        /// Checks if user with given password exists in the database
         /// </summary>
         /// <param name="_email">Email</param>
         /// <param name="_password">Password</param>
@@ -19,24 +16,31 @@ namespace JKBB_CVGS.Models.ViewModels
         public bool IsValid(string _email, string _password)
         {
             bool flag = false;
+            bool flag2 = false;
             string connString = ConfigurationManager.ConnectionStrings["CVGS_Context"].ConnectionString;
             using (SqlConnection conn = new SqlConnection(connString))
             {
                 conn.Open();
-                SqlCommand cmd = new SqlCommand("SELECT COUNT(*) FROM [dbo].[User] WHERE [Email]='" + _email +
+                SqlCommand cmd = new SqlCommand("SELECT COUNT(*) FROM [dbo].[Member] WHERE [Email]='" + _email +
+                    "' AND [Password]='" + password + "'", conn);
+                SqlCommand cmd2 = new SqlCommand("SELECT COUNT(*) FROM [dbo].[Employee] WHERE [Email]='" + _email +
                     "' AND [Password]='" + password + "'", conn);
                 flag = Convert.ToBoolean(cmd.ExecuteScalar());
-                return flag;
+                flag2 = Convert.ToBoolean(cmd2.ExecuteScalar());
+                if (flag == true || flag2 == true)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
         }
 
-        private string userName;
         private string email;
         private string password;
-        private string firstName;
-        private string lastName;
 
-        public string UserName { get => userName; set => userName = value; }
         [Required(ErrorMessage = "Email is required")]
         [Display(Name = "Email")]
         [DataType(DataType.EmailAddress)]
@@ -47,8 +51,6 @@ namespace JKBB_CVGS.Models.ViewModels
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get => password; set => password = value; }
-        public string FirstName { get => firstName; set => firstName = value; }
-        public string LastName { get => lastName; set => lastName = value; }
 
     }
 }

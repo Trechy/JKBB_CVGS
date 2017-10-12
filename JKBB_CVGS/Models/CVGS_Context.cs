@@ -16,10 +16,25 @@ namespace JKBB_CVGS.Models
         public virtual DbSet<Event> Events { get; set; }
         public virtual DbSet<Game> Games { get; set; }
         public virtual DbSet<Member> Members { get; set; }
-        public virtual DbSet<User> Users { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Employee>()
+                .Property(e => e.Email)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Employee>()
+                .Property(e => e.Password)
+                .IsFixedLength();
+
+            modelBuilder.Entity<Employee>()
+                .Property(e => e.FirstName)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Employee>()
+                .Property(e => e.LastName)
+                .IsUnicode(false);
+
             modelBuilder.Entity<Event>()
                 .Property(e => e.EventName)
                 .IsUnicode(false);
@@ -45,6 +60,26 @@ namespace JKBB_CVGS.Models
                 .HasPrecision(5, 2);
 
             modelBuilder.Entity<Member>()
+                .Property(e => e.UserName)
+                .IsFixedLength();
+
+            modelBuilder.Entity<Member>()
+                .Property(e => e.Email)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Member>()
+                .Property(e => e.Password)
+                .IsFixedLength();
+
+            modelBuilder.Entity<Member>()
+                .Property(e => e.FirstName)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Member>()
+                .Property(e => e.LastName)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Member>()
                 .Property(e => e.Gender)
                 .IsUnicode(false);
 
@@ -67,36 +102,6 @@ namespace JKBB_CVGS.Models
             modelBuilder.Entity<Member>()
                 .Property(e => e.phoneNumber)
                 .IsUnicode(false);
-
-            modelBuilder.Entity<User>()
-                .Property(e => e.UserName)
-                .IsFixedLength();
-
-            modelBuilder.Entity<User>()
-                .Property(e => e.Email)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<User>()
-                .Property(e => e.Password)
-                .IsFixedLength();
-
-            modelBuilder.Entity<User>()
-                .Property(e => e.FirstName)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<User>()
-                .Property(e => e.LastName)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<User>()
-                .HasMany(e => e.Employees)
-                .WithRequired(e => e.User)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<User>()
-                .HasMany(e => e.Members)
-                .WithRequired(e => e.User)
-                .WillCascadeOnDelete(false);
         }
     }
 }

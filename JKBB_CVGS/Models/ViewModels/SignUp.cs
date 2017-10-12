@@ -14,7 +14,7 @@ namespace JKBB_CVGS.Models.ViewModels
     {
         public SignUp()
         {
-            Users = new HashSet<User>();
+            Members = new HashSet<Member>();
         }
         //public bool IsValid(string password, string _password)
         //{
@@ -29,9 +29,7 @@ namespace JKBB_CVGS.Models.ViewModels
         //    //    return flag;
         //    //}
         //}
-
-
-        public int UserID { get; set; }
+        public int MemberID { get; set; }
 
         [Required]
         [StringLength(25)]
@@ -45,8 +43,9 @@ namespace JKBB_CVGS.Models.ViewModels
         public string Email { get; set; }
 
         [Required]
-        [DataType(DataType.Password)]
         [StringLength(25)]
+        [DataType(DataType.Password)]
+        [DisplayName("Password")]
         public string Password { get; set; }
 
         [Required]
@@ -54,7 +53,6 @@ namespace JKBB_CVGS.Models.ViewModels
         [DisplayName("Confirm Password")]
         //[Compare("Password", ErrorMessage = "Passwords do not match.")]
         public string ConfirmPassword { get; set; }
-
 
         [Required]
         [StringLength(25)]
@@ -66,7 +64,7 @@ namespace JKBB_CVGS.Models.ViewModels
         [DisplayName("Last Name")]
         public string LastName { get; set; }
 
-        public virtual ICollection<User> Users { get; set; }
+        public virtual ICollection<Member> Members { get; set; }
 
     }
 }

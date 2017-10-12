@@ -46,7 +46,7 @@ namespace JKBB_CVGS.Controllers
         }
 
         [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult SignUp([Bind(Include = "UserID,UserName,Email,Password,FirstName,LastName")]User user,SignUp signup)
+        public ActionResult SignUp([Bind(Include = "MemberID,UserName,Email,Password,FirstName,LastName")]Member member,SignUp signup)
         {
             if (signup.ConfirmPassword != signup.Password)
             {
@@ -55,7 +55,7 @@ namespace JKBB_CVGS.Controllers
 
             if (ModelState.IsValid)
             {
-                db.Users.Add(user);
+                db.Members.Add(member);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -69,6 +69,11 @@ namespace JKBB_CVGS.Controllers
         {
             return View();
         }
-        
+
+        public ActionResult LogOut()
+        {
+            return RedirectToAction("");
+        }
+
     }
 }
