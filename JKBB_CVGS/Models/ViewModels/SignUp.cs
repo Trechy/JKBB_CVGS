@@ -45,12 +45,14 @@ namespace JKBB_CVGS.Models.ViewModels
         public string Email { get; set; }
 
         [Required]
+        [DataType(DataType.Password)]
         [StringLength(25)]
         public string Password { get; set; }
 
         [Required]
+        [DataType(DataType.Password)]
         [DisplayName("Confirm Password")]
-        [Compare("Password", ErrorMessage = "Passwords do not match.")]
+        //[Compare("Password", ErrorMessage = "Passwords do not match.")]
         public string ConfirmPassword { get; set; }
 
 

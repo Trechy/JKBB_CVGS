@@ -223,6 +223,8 @@
     <Content Include="Views\Event\Index.cshtml" />
     <Content Include="Views\Report\Index.cshtml" />
     <Content Include="Views\Shared\_InitiateLayout.cshtml" />
+    <Content Include="Views\Home\SignUp.cshtml" />
+    <Content Include="Views\Shared\_EmptyLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Reports\" />

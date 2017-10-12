@@ -16,8 +16,7 @@ namespace JKBB_CVGS.Controllers
         [HttpGet]
         public ActionResult Login()
         {
-            LoginSignUp loginModel = new LoginSignUp();
-            return View(loginModel);
+            return View();
         }
 
         [HttpPost]
@@ -41,9 +40,19 @@ namespace JKBB_CVGS.Controllers
             }            
         }
 
-        [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult SignUp([Bind(Include = "UserID,UserName,Email,Password,FirstName,LastName")]User user)
+        public ActionResult SignUp()
         {
+            return View();
+        }
+
+        [AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult SignUp([Bind(Include = "UserID,UserName,Email,Password,FirstName,LastName")]User user,SignUp signup)
+        {
+            if (signup.ConfirmPassword != signup.Password)
+            {
+                ModelState.AddModelError("ConfirmPassword", "Passwords don't match");
+            }
+
             if (ModelState.IsValid)
             {
                 db.Users.Add(user);
@@ -60,5 +69,6 @@ namespace JKBB_CVGS.Controllers
         {
             return View();
         }
+        
     }
 }
