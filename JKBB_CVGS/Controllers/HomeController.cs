@@ -20,13 +20,20 @@ namespace JKBB_CVGS.Controllers
         }
 
         [HttpPost]
-        public ActionResult Login(Login user)
+        public ActionResult Login(Login user, string returnUrl)
         {
             if (ModelState.IsValid)
             {               
                 if (user.IsValid(user.Email, user.Password))
                 {
-                    return RedirectToAction("Index", "Home");
+                    if (IsLocalUrl(returnUrl))
+                    {
+                        return Redirect(returnUrl);
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
                 }
                 else
                 {
