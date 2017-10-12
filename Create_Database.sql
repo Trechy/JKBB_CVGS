@@ -81,13 +81,13 @@ GO
 CREATE TABLE [dbo].[Member] (
     [MemberID]    INT          NOT NULL IDENTITY,
 	[UserID] INT NOT NULL,
-    [Gender]      VARCHAR (1)  NOT NULL,
-    [DateOfBirth] DATE         NOT NULL,
-    [Address]     VARCHAR (50) NOT NULL,
-    [City]        VARCHAR (25) NOT NULL,
-    [Province]    VARCHAR (25) NOT NULL,
-    [PostalCode]  VARCHAR (6)  NOT NULL,
-    [phoneNumber] VARCHAR (10) NOT NULL,
+    [Gender]      VARCHAR (1),
+    [DateOfBirth] DATE,
+    [Address]     VARCHAR (50),
+    [City]        VARCHAR (25),
+    [Province]    VARCHAR (25),
+    [PostalCode]  VARCHAR (6),
+    [phoneNumber] VARCHAR (10),
     PRIMARY KEY ([MemberID]),
 	FOREIGN KEY ([UserID]) REFERENCES [dbo].[User]([UserID])
 );
