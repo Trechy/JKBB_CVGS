@@ -8,11 +8,12 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using JKBB_CVGS;
 using JKBB_CVGS.Controllers;
+using JKBB_CVGS.Models.ViewModels;
 
 namespace JKBB_CVGS_Tests
 {
     [TestClass]
-    public class Controllers
+    public class Controllers_Tests
     {
         [TestMethod]
         public void HomeIndex()
@@ -29,12 +30,14 @@ namespace JKBB_CVGS_Tests
         {
             //Arrange
             HomeController hControl = new HomeController();
-            string email = "user@test.com";
-            string password = "password";
+            Login loginUser = new Login();
+            loginUser.Email = "user@test.com";
+            loginUser.Password = "password";
             //Act
-            ViewResult result = hControl.Login() as ViewResult;
+            ViewResult result = hControl.Login(loginUser) as ViewResult;
             //Assert
             Assert.IsNotNull(result);
+            Assert.IsTrue(result.ViewName == "Index");
         }
     }
 }
