@@ -1,16 +1,24 @@
 ﻿@{
     ViewBag.Title = "CVGS";
+    if (!ViewBag.IsEmployee)
+    {
+        Layout = "~/Views/Shared/_MemberLayout.cshtml";
+    }
+    else
+    {
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
 }
 
 <div class="row">
     <div class="col-md-6">
         <h2>Game List</h2>
         <p></p>
-        @Html.ActionLink("More Games","Index", "Game")
+        @Html.ActionLink("More Games","Index", "Game", new { ViewBag.Email},null)
     </div>
     <div class="col-md-6">
         <h2>Event List</h2>
         <p></p>
-        @Html.ActionLink("More Events", "Index", "Event")
+        @Html.ActionLink("More Events", "Index", "Event",new { ViewBag.Email}, null)
     </div>
 </div>

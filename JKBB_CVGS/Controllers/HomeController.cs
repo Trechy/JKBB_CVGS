@@ -2,6 +2,8 @@
 using JKBB_CVGS.Models.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -20,20 +22,13 @@ namespace JKBB_CVGS.Controllers
         }
 
         [HttpPost]
-        public ActionResult Login(Login user, string returnUrl)
+        public ActionResult Login(Login login)
         {
             if (ModelState.IsValid)
             {               
-                if (user.IsValid(user.Email, user.Password))
+                if (login.IsValid(login.Email, login.Password))
                 {
-                    if (IsLocalUrl(returnUrl))
-                    {
-                        return Redirect(returnUrl);
-                    }
-                    else
-                    {
-                        return RedirectToAction("Index", "Home");
-                    }
+                    return RedirectToAction("Index", "Home",new { login.Email});
                 }
                 else
                 {
@@ -72,8 +67,25 @@ namespace JKBB_CVGS.Controllers
             }
         }
 
-        public ActionResult Index()
+        public ActionResult Index(string email)
         {
+            ViewBag.Email = email;
+            string connString = ConfigurationManager.ConnectionStrings["CVGS_Context"].ConnectionString;
+            using (SqlConnection conn = new SqlConnection(connString))
+            {
+                bool flag = false;
+                conn.Open();
+                SqlCommand cmd = new SqlCommand("SELECT COUNT(*) FROM [dbo].[Employee] WHERE [Email]='" + email + "'", conn);
+                flag = Convert.ToBoolean(cmd.ExecuteScalar());
+                if (flag == true)
+                {
+                    ViewBag.IsEmployee = true;
+                }
+                else
+                {
+                    ViewBag.IsEmployee = false;
+                }
+            }
             return View();
         }
 

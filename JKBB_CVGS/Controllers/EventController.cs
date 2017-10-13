@@ -7,16 +7,35 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using JKBB_CVGS.Models;
+using System.Configuration;
+using System.Data.SqlClient;
 
 namespace JKBB_CVGS.Controllers
 {
     public class EventController : Controller
     {
         private CVGS_Context db = new CVGS_Context();
+        public bool CanEdit = false;
 
         // GET: Event
-        public ActionResult Index()
+        public ActionResult Index(string email)
         {
+            string connString = ConfigurationManager.ConnectionStrings["CVGS_Context"].ConnectionString;
+            using (SqlConnection conn = new SqlConnection(connString))
+            {
+                bool flag = false;
+                conn.Open();
+                SqlCommand cmd = new SqlCommand("SELECT COUNT(*) FROM [dbo].[Employee] WHERE [Email]='" + email + "'", conn);
+                flag = Convert.ToBoolean(cmd.ExecuteScalar());
+                if (flag == true)
+                {
+                    ViewBag.IsEmployee = true;
+                }
+                else
+                {
+                    ViewBag.IsEmployee = false;
+                }
+            }
             return View(db.Events.ToList());
         }
 
