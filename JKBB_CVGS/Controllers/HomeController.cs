@@ -22,21 +22,13 @@ namespace JKBB_CVGS.Controllers
         }
 
         [HttpPost]
-<<<<<<< HEAD
         public ActionResult Login(Login login)
-=======
-        public ActionResult Login(Login user)
->>>>>>> 7f3de2b9669c921f9de42cd83743d903765b3613
         {
             if (ModelState.IsValid)
             {               
                 if (login.IsValid(login.Email, login.Password))
                 {
-<<<<<<< HEAD
                     return RedirectToAction("Index", "Home",new { login.Email});
-=======
-                    return RedirectToAction("Index", "Home");
->>>>>>> 7f3de2b9669c921f9de42cd83743d903765b3613
                 }
                 else
                 {
