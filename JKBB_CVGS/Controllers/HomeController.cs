@@ -28,7 +28,7 @@ namespace JKBB_CVGS.Controllers
             {               
                 if (login.IsValid(login.Email, login.Password))
                 {
-                    return RedirectToAction("Index", "Home",new { login.Email});
+                    return View("Index", "Home",new { login.Email});
                 }
                 else
                 {
@@ -91,7 +91,7 @@ namespace JKBB_CVGS.Controllers
 
         public ActionResult LogOut()
         {
-            return RedirectToAction("");
+            return View("SignUp");
         }
 
     }
