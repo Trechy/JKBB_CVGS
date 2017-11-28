@@ -7,6 +7,7 @@ using System.Web;
 using JKBB_CVGS.Models;
 using System.Configuration;
 using System.Data.SqlClient;
+using System.Web.Mvc;
 
 namespace JKBB_CVGS.Models.ViewModels
 {
@@ -14,7 +15,7 @@ namespace JKBB_CVGS.Models.ViewModels
     {
         public SignUp()
         {
-            Members = new HashSet<Member>();
+            Users = new HashSet<User>();
         }
         //public bool IsValid(string password, string _password)
         //{
@@ -29,12 +30,6 @@ namespace JKBB_CVGS.Models.ViewModels
         //    //    return flag;
         //    //}
         //}
-        public int MemberID { get; set; }
-
-        [Required]
-        [StringLength(25)]
-        [DisplayName("Username")]
-        public string UserName { get; set; }
 
         [Required]
         [StringLength(50)]
@@ -64,7 +59,11 @@ namespace JKBB_CVGS.Models.ViewModels
         [DisplayName("Last Name")]
         public string LastName { get; set; }
 
-        public virtual ICollection<Member> Members { get; set; }
+        [Required]
+        [DisplayName("Role")]
+        public string Role { get; set; }
+
+        public virtual ICollection<User> Users { get; set; }
 
     }
 }

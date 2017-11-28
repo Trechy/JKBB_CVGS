@@ -20,22 +20,6 @@ namespace JKBB_CVGS.Controllers
         // GET: Event
         public ActionResult Index(string email)
         {
-            string connString = ConfigurationManager.ConnectionStrings["CVGS_Context"].ConnectionString;
-            using (SqlConnection conn = new SqlConnection(connString))
-            {
-                bool flag = false;
-                conn.Open();
-                SqlCommand cmd = new SqlCommand("SELECT COUNT(*) FROM [dbo].[Employee] WHERE [Email]='" + email + "'", conn);
-                flag = Convert.ToBoolean(cmd.ExecuteScalar());
-                if (flag == true)
-                {
-                    ViewBag.IsEmployee = true;
-                }
-                else
-                {
-                    ViewBag.IsEmployee = false;
-                }
-            }
             return View(db.Events.ToList());
         }
 

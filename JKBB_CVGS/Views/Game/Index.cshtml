@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "Games";
-    if (!ViewBag.IsEmployee)
+    if (false)
     {
         Layout = "~/Views/Shared/_MemberLayout.cshtml";
     }
@@ -59,7 +59,7 @@
         </td>
         <td>
             @Html.ActionLink("Details", "Details", new { id = item.GameID })
-            @if (ViewBag.IsEmployee)
+            @if (true)
             {
                 @Html.ActionLink("Edit", "Edit", new { id = item.GameID })
                 @Html.ActionLink(" Delete", "Delete", new { id = item.GameID }, new { onclick = "return confirm('Are you sure you wish to delete this game?');" })

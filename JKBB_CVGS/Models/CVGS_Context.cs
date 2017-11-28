@@ -12,27 +12,16 @@ namespace JKBB_CVGS.Models
         {
         }
 
-        public virtual DbSet<Employee> Employees { get; set; }
+        public virtual DbSet<Cart> Carts { get; set; }
         public virtual DbSet<Event> Events { get; set; }
         public virtual DbSet<Game> Games { get; set; }
-        public virtual DbSet<Member> Members { get; set; }
+        public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<Wishlist> Wishlists { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Employee>()
+            modelBuilder.Entity<Cart>()
                 .Property(e => e.Email)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<Employee>()
-                .Property(e => e.Password)
-                .IsFixedLength();
-
-            modelBuilder.Entity<Employee>()
-                .Property(e => e.FirstName)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<Employee>()
-                .Property(e => e.LastName)
                 .IsUnicode(false);
 
             modelBuilder.Entity<Event>()
@@ -59,48 +48,77 @@ namespace JKBB_CVGS.Models
                 .Property(e => e.BasePrice)
                 .HasPrecision(5, 2);
 
-            modelBuilder.Entity<Member>()
-                .Property(e => e.UserName)
-                .IsFixedLength();
+            modelBuilder.Entity<Game>()
+                .HasMany(e => e.Carts)
+                .WithRequired(e => e.Game)
+                .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<Member>()
+            modelBuilder.Entity<Game>()
+                .HasMany(e => e.Wishlists)
+                .WithRequired(e => e.Game)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<User>()
                 .Property(e => e.Email)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<Member>()
+            modelBuilder.Entity<User>()
                 .Property(e => e.Password)
                 .IsFixedLength();
 
-            modelBuilder.Entity<Member>()
+            modelBuilder.Entity<User>()
+                .Property(e => e.Role)
+                .IsFixedLength();
+
+            modelBuilder.Entity<User>()
                 .Property(e => e.FirstName)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<Member>()
+            modelBuilder.Entity<User>()
                 .Property(e => e.LastName)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<Member>()
+            modelBuilder.Entity<User>()
                 .Property(e => e.Gender)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<Member>()
+            modelBuilder.Entity<User>()
                 .Property(e => e.Address)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<Member>()
+            modelBuilder.Entity<User>()
                 .Property(e => e.City)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<Member>()
+            modelBuilder.Entity<User>()
                 .Property(e => e.Province)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<Member>()
+            modelBuilder.Entity<User>()
                 .Property(e => e.PostalCode)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<Member>()
+            modelBuilder.Entity<User>()
                 .Property(e => e.phoneNumber)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<User>()
+                .HasMany(e => e.Carts)
+                .WithRequired(e => e.User)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<User>()
+                .HasMany(e => e.Wishlists)
+                .WithRequired(e => e.User)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<User>()
+                .HasMany(e => e.Events)
+                .WithMany(e => e.Users)
+                .Map(m => m.ToTable("Register").MapLeftKey("Email").MapRightKey("EventID"));
+
+            modelBuilder.Entity<Wishlist>()
+                .Property(e => e.Email)
                 .IsUnicode(false);
         }
     }

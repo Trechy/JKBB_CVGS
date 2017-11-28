@@ -9,6 +9,13 @@ namespace JKBB_CVGS.Models
     [Table("Game")]
     public partial class Game
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Game()
+        {
+            Carts = new HashSet<Cart>();
+            Wishlists = new HashSet<Wishlist>();
+        }
+
         public int GameID { get; set; }
 
         [Required]
@@ -29,5 +36,11 @@ namespace JKBB_CVGS.Models
         public decimal BasePrice { get; set; }
 
         public double Discount { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Cart> Carts { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Wishlist> Wishlists { get; set; }
     }
 }

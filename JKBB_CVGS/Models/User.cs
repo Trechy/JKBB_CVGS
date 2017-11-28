@@ -6,22 +6,28 @@ namespace JKBB_CVGS.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("Member")]
-    public partial class Member
+    [Table("User")]
+    public partial class User
     {
-        public int MemberID { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public User()
+        {
+            Carts = new HashSet<Cart>();
+            Wishlists = new HashSet<Wishlist>();
+            Events = new HashSet<Event>();
+        }
 
-        [Required]
-        [StringLength(25)]
-        public string UserName { get; set; }
-
-        [Required]
+        [Key]
         [StringLength(50)]
         public string Email { get; set; }
 
         [Required]
         [StringLength(25)]
         public string Password { get; set; }
+
+        [Required]
+        [StringLength(25)]
+        public string Role { get; set; }
 
         [Required]
         [StringLength(25)]
@@ -51,5 +57,14 @@ namespace JKBB_CVGS.Models
 
         [StringLength(10)]
         public string phoneNumber { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Cart> Carts { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Wishlist> Wishlists { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Event> Events { get; set; }
     }
 }

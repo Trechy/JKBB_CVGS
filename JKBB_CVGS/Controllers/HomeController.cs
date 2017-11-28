@@ -1,5 +1,6 @@
 ﻿using JKBB_CVGS.Models;
 using JKBB_CVGS.Models.ViewModels;
+using JKBB_CVGS.Security;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -8,6 +9,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+
 
 namespace JKBB_CVGS.Controllers
 {
@@ -22,13 +24,31 @@ namespace JKBB_CVGS.Controllers
         }
 
         [HttpPost]
+        public ActionResult Login(UserViewModel uvm)
+        {
+            UserModel um = new UserModel();
+            User user = um.getUser(uvm.User.Email);
+            
+            if (string.IsNullOrEmpty(user.Email) || 
+                string.IsNullOrEmpty(user.Password) ||
+                um.login(user.Email, user.Password) == null)
+            {
+                ViewBag.Error = "User is invalid.";
+                return View();
+            }
+            SessionPersister.Email = user.Email;
+            return RedirectToAction("Index", "Home");
+        }
+
+        /*[HttpPost]
         public ActionResult Login(Login login)
         {
             if (ModelState.IsValid)
-            {               
+            {
                 if (login.IsValid(login.Email, login.Password))
                 {
-                    return RedirectToAction("Index", "Home",new { login.Email});
+                    SessionPersister.Email = login.Email;
+                    return RedirectToAction("Index", "Home", new { login.Email });
                 }
                 else
                 {
@@ -39,8 +59,9 @@ namespace JKBB_CVGS.Controllers
             else
             {
                 return View();
-            }            
-        }
+            }  
+        }*/
+
 
         public ActionResult SignUp()
         {
@@ -48,18 +69,18 @@ namespace JKBB_CVGS.Controllers
         }
 
         [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult SignUp([Bind(Include = "MemberID,UserName,Email,Password,FirstName,LastName")]Member member,SignUp signup)
+        public ActionResult SignUp([Bind(Include = "UserID,UserName,Email,Password,FirstName,LastName,Role")]User user, SignUp signup)
         {
+
             if (signup.ConfirmPassword != signup.Password)
             {
                 ModelState.AddModelError("ConfirmPassword", "Passwords don't match");
-            }
-
+            }       
             if (ModelState.IsValid)
             {
-                db.Members.Add(member);
+                db.Users.Add(user);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Login");
             }
             else
             {
@@ -67,30 +88,15 @@ namespace JKBB_CVGS.Controllers
             }
         }
 
+        [CustomAuthorize(Roles="Member, Employee")]
         public ActionResult Index(string email)
-        {
-            ViewBag.Email = email;
-            string connString = ConfigurationManager.ConnectionStrings["CVGS_Context"].ConnectionString;
-            using (SqlConnection conn = new SqlConnection(connString))
-            {
-                bool flag = false;
-                conn.Open();
-                SqlCommand cmd = new SqlCommand("SELECT COUNT(*) FROM [dbo].[Employee] WHERE [Email]='" + email + "'", conn);
-                flag = Convert.ToBoolean(cmd.ExecuteScalar());
-                if (flag == true)
-                {
-                    ViewBag.IsEmployee = true;
-                }
-                else
-                {
-                    ViewBag.IsEmployee = false;
-                }
-            }
+        {          
             return View();
         }
 
         public ActionResult LogOut()
         {
+            SessionPersister.Email = string.Empty;
             return RedirectToAction("SignUp", "Home");
         }
 

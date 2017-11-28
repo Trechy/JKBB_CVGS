@@ -1,27 +1,38 @@
 ﻿/*
-DROP TABLE [dbo].[Employee]
+DROP TABLE [dbo].[Cart]
+DROP TABLE [dbo].[Wishlist]
+DROP TABLE [dbo].[Register]
+DROP TABLE [dbo].[User]
 DROP TABLE [dbo].[Event]
 DROP TABLE [dbo].[Game]
-DROP TABLE [dbo].[Member]
 */
 
-CREATE TABLE [dbo].[Employee]
+CREATE TABLE [dbo].[User]
 (
-	[EmployeeID] INT NOT NULL IDENTITY , 
-    [Email] VARCHAR(50) NOT NULL UNIQUE, 
-    [Password] NCHAR(25) NOT NULL, 
+    [Email] VARCHAR(50) NOT NULL, 
+    [Password] VARCHAR(25) NOT NULL, 
+	[Role]    VARCHAR(25) NOT NULL, 
     [FirstName] VARCHAR(25) NOT NULL, 
     [LastName] VARCHAR(25) NOT NULL,
-	PRIMARY KEY ([EmployeeID])
+	[Gender]      VARCHAR (1),
+    [DateOfBirth] DATE,
+    [Address]     VARCHAR (50),
+    [City]        VARCHAR (25),
+    [Province]    VARCHAR (25),
+    [PostalCode]  VARCHAR (6),
+    [phoneNumber] VARCHAR (10),
+	PRIMARY KEY ([Email])
 )
 GO
-INSERT INTO [dbo].[Employee]
-	([Email],[Password],[FirstName],[LastName])
+INSERT INTO [dbo].[User]
+	([Email],[Password],[Role],[FirstName],[LastName],[Gender],[DateOfBirth],[Address],[City],[Province],[PostalCode],[phoneNumber])
 VALUES
-	('employee@test.com','password','testFirstName','testLastName');
+	('user@test.com', 'password', 'Member','testFirstName','testLastName','F', convert(date,'19971006'), '11 hello street', 'Kitchener', 'ON', 'N1N2N3','5191234567'),
+	('employee@test.com', 'password', 'Employee','testFirstName','testLastName','F', convert(date,'19971006'), '11 hello street', 'Kitchener', 'ON', 'N1N2N3','5191234567');;
 GO
-SELECT * FROM [dbo].[Employee];
+SELECT * FROM [dbo].[User];
 GO
+
 
 
 CREATE TABLE [dbo].[Event] (
@@ -60,27 +71,55 @@ GO
 SELECT * FROM [dbo].[Game];
 GO
 
-CREATE TABLE [dbo].[Member] (
-    [MemberID]    INT          NOT NULL IDENTITY,
-	[UserName] NCHAR (25) NOT NULL,
-    [Email] VARCHAR(50) NOT NULL UNIQUE, 
-    [Password] NCHAR(25) NOT NULL, 
-    [FirstName] VARCHAR(25) NOT NULL, 
-    [LastName] VARCHAR(25) NOT NULL,
-    [Gender]      VARCHAR (1),
-    [DateOfBirth] DATE,
-    [Address]     VARCHAR (50),
-    [City]        VARCHAR (25),
-    [Province]    VARCHAR (25),
-    [PostalCode]  VARCHAR (6),
-    [phoneNumber] VARCHAR (10),
-    PRIMARY KEY ([MemberID])
+
+CREATE TABLE [dbo].[Wishlist] (
+    [WishlistID]		INT         NOT NULL IDENTITY,
+    [Email] VARCHAR(50)			NOT NULL,
+    [GameID]			INT			NOT NULL,
+    [AddDate]			DATETIME        NOT NULL,
+    PRIMARY KEY ([WishlistID]),
+	FOREIGN KEY ([Email]) REFERENCES [dbo].[User]([Email]),
+	FOREIGN KEY ([GameID]) REFERENCES [dbo].[Game]([GameID])
 );
 GO
-INSERT INTO [dbo].[Member]
-	([UserName],[Email],[Password],[FirstName],[LastName],[Gender],[DateOfBirth],[Address],[City],[Province],[PostalCode],[phoneNumber])
+INSERT INTO [dbo].[Wishlist]
+	([Email],[GameID],[AddDate])
 VALUES
-	('testUser','user@test.com', 'password', 'testFirstName','testLastName','F', convert(date,'19971006'), '11 hello street', 'Kitchener', 'ON', 'N1N2N3','5191234567');
+	('user@test.com', 1, convert(datetime,'20171006 10:34:09 PM'));
 GO
-SELECT * FROM [dbo].[Member];
+SELECT * FROM [dbo].[Wishlist];
+GO
+
+CREATE TABLE [dbo].[Register] (
+    [Email] VARCHAR(50)			NOT NULL,
+    [EventID]			INT			NOT NULL,
+	FOREIGN KEY ([Email]) REFERENCES [dbo].[User]([Email]),
+	FOREIGN KEY ([EventID]) REFERENCES [dbo].[Event]([EventID])
+);
+GO
+INSERT INTO [dbo].[Register]
+	([Email],[EventID])
+VALUES
+	('user@test.com', 1);
+GO
+SELECT * FROM [dbo].[Register];
+GO
+
+
+CREATE TABLE [dbo].[Cart] (
+    [CartID]		INT         NOT NULL IDENTITY,
+    [Email] VARCHAR(50)		NOT NULL,
+    [GameID]			INT			NOT NULL,
+    [Quantity]			INT        NOT NULL,
+    PRIMARY KEY ([CartID]),
+	FOREIGN KEY ([Email]) REFERENCES [dbo].[User]([Email]),
+	FOREIGN KEY ([GameID]) REFERENCES [dbo].[Game]([GameID])
+);
+GO
+INSERT INTO [dbo].[Cart]
+	([Email],[GameID],[Quantity])
+VALUES
+	('user@test.com', 1, 2);
+GO
+SELECT * FROM [dbo].[Cart];
 GO

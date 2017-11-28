@@ -17,7 +17,7 @@ namespace JKBB_CVGS.Controllers
             //Query for member list report
             using (var context = new CVGS_Context())
             {
-                var L2EQuery = from m in context.Members 
+                var L2EQuery = from m in context.Users 
                                select new {
                                    UserName =  m.FirstName + m.LastName,
                                    UserEmail = m.Email,

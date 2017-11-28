@@ -9,6 +9,12 @@ namespace JKBB_CVGS.Models
     [Table("Event")]
     public partial class Event
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Event()
+        {
+            Users = new HashSet<User>();
+        }
+
         public int EventID { get; set; }
 
         [Required]
@@ -19,5 +25,8 @@ namespace JKBB_CVGS.Models
 
         [Required]
         public string Description { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<User> Users { get; set; }
     }
 }
