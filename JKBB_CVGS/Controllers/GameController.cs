@@ -22,6 +22,18 @@ namespace JKBB_CVGS.Controllers
             return View(db.Games.ToList());
         }
 
+        //https://docs.microsoft.com/en-us/aspnet/core/tutorials/first-mvc-app/search
+
+        //public ActionResult Index(string email, string searchString)
+        //{
+        //    var gameResult = from Game in db.Games select Game.Title;
+        //    if (!String.IsNullOrEmpty(searchString))
+        //    {
+        //        gameResult = gameResult.Where(g => g.Title.Contains(searchString));
+        //    }
+        //    return View(gameResult.ToList());
+        //}
+
         // GET: Game/Details/5
         public ActionResult Details(int? id)
         {
