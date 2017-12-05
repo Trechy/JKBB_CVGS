@@ -28,40 +28,27 @@ namespace JKBB_CVGS.Controllers
         {
             UserModel um = new UserModel();
             User user = um.getUser(uvm.User.Email);
-            
-            if (string.IsNullOrEmpty(user.Email) || 
+
+            try
+            {
+                if (string.IsNullOrEmpty(user.Email) ||
                 string.IsNullOrEmpty(user.Password) ||
                 um.login(user.Email, user.Password) == null)
+                {
+                    ViewBag.Error = "User is invalid.";
+                    return View();
+                }
+            }
+            catch (Exception)
             {
                 ViewBag.Error = "User is invalid.";
                 return View();
             }
+            
             SessionPersister.Email = user.Email;
+            SessionPersister.Role = user.Role;
             return RedirectToAction("Index", "Home");
         }
-
-        /*[HttpPost]
-        public ActionResult Login(Login login)
-        {
-            if (ModelState.IsValid)
-            {
-                if (login.IsValid(login.Email, login.Password))
-                {
-                    SessionPersister.Email = login.Email;
-                    return RedirectToAction("Index", "Home", new { login.Email });
-                }
-                else
-                {
-                    ModelState.AddModelError("", "Login data is incorrect!");
-                    return View();
-                }
-            }
-            else
-            {
-                return View();
-            }  
-        }*/
-
 
         public ActionResult SignUp()
         {
@@ -88,7 +75,7 @@ namespace JKBB_CVGS.Controllers
             }
         }
 
-        [CustomAuthorize(Roles="Member, Employee")]
+        [CustomAuthorize(Roles="Member,Employee")]
         public ActionResult Index(string email)
         {          
             return View();
@@ -97,7 +84,7 @@ namespace JKBB_CVGS.Controllers
         public ActionResult LogOut()
         {
             SessionPersister.Email = string.Empty;
-            return RedirectToAction("SignUp", "Home");
+            return RedirectToAction("Login", "Home");
         }
 
     }

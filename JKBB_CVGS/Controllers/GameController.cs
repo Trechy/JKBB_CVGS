@@ -17,7 +17,7 @@ namespace JKBB_CVGS.Controllers
         private CVGS_Context db = new CVGS_Context();
 
         // GET: Game
-        public ActionResult Index(string email)
+        public ActionResult Index()
         {
             return View(db.Games.ToList());
         }

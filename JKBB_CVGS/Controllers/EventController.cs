@@ -18,7 +18,7 @@ namespace JKBB_CVGS.Controllers
         public bool CanEdit = false;
 
         // GET: Event
-        public ActionResult Index(string email)
+        public ActionResult Index()
         {
             return View(db.Events.ToList());
         }

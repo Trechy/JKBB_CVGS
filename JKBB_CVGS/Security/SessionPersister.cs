@@ -9,6 +9,7 @@ namespace JKBB_CVGS.Security
     public static class SessionPersister
     {
         static string emailSessionvar = "Email";
+        static string roleSessionvar = "Role";
 
         public static string Email
         {
@@ -29,6 +30,28 @@ namespace JKBB_CVGS.Security
             set
             {
                 HttpContext.Current.Session[emailSessionvar] = value;
+            }
+        }
+
+        public static string Role
+        {
+            get
+            {
+                if (HttpContext.Current == null)
+                {
+                    return string.Empty;
+                }
+                var sessionVar = HttpContext.Current.Session[roleSessionvar];
+                if (sessionVar != null)
+                {
+                    return sessionVar as string;
+                }
+                return null;
+
+            }
+            set
+            {
+                HttpContext.Current.Session[roleSessionvar] = value;
             }
         }
     }

@@ -1,21 +1,14 @@
 ﻿@model IEnumerable<JKBB_CVGS.Models.Game>
-
+@using JKBB_CVGS.Security
 @{
     ViewBag.Title = "Games";
-    if (false)
-    {
-        Layout = "~/Views/Shared/_MemberLayout.cshtml";
-    }
-    else
-    {
-        Layout = "~/Views/Shared/_Layout.cshtml";
-    }
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Games</h2>
 
 <p>
-    @if (ViewBag.IsEmployee)
+    @if (SessionPersister.Role == "Employee")
     {
         @Html.ActionLink("Add", "Create")
     }
@@ -59,7 +52,7 @@
         </td>
         <td>
             @Html.ActionLink("Details", "Details", new { id = item.GameID })
-            @if (true)
+            @if (SessionPersister.Role == "Employee")
             {
                 @Html.ActionLink("Edit", "Edit", new { id = item.GameID })
                 @Html.ActionLink(" Delete", "Delete", new { id = item.GameID }, new { onclick = "return confirm('Are you sure you wish to delete this game?');" })

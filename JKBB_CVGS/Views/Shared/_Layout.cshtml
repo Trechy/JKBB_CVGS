@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using JKBB_CVGS.Security
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -17,14 +18,19 @@
                     <span class="icon-bar"></span>
                 </button>
                 @Html.ActionLink("CVGS", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    @if (SessionPersister.Role == "Employee")
+                    {
+                        <li>@Html.ActionLink("Report", "Index", "Report")</li>
+                    }
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li>@Html.ActionLink("Report", "Index", "Report")</li>
-                    <li>@Html.ActionLink("Logout", "SignUp", "Home")</li>
+                    <li>@Html.ActionLink(@SessionPersister.Email, "Index", "Profile", new { email = SessionPersister.Email }, null)</li>
+                    <li>@Html.ActionLink("Logout", "Login", "Home")</li>
                 </ul>
             </div>
         </div>
