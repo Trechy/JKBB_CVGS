@@ -9,7 +9,7 @@
 
 <div>
     <h4>@SessionPersister.Email</h4>
-    <button onclick="location.href='@Url.Action("Index", "Profile")';return false;">Wishlist</button>
+    @Html.ActionLink("Wishlist", "Index", "Profile", new { email = SessionPersister.Email }, new { @class = "btn btn-default" })
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -93,15 +93,15 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.phoneNumber)
+            @Html.DisplayNameFor(model => model.PhoneNumber)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.phoneNumber)
+            @Html.DisplayFor(model => model.PhoneNumber)
         </dd>
 
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { email = Model.Email })
+    @Html.ActionLink("Edit", "Edit", "Profile", new { email = Model.Email }, new { @class = "btn btn-default" })
 </p>

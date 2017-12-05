@@ -56,21 +56,17 @@ namespace JKBB_CVGS.Controllers
         }
 
         [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult SignUp([Bind(Include = "UserID,UserName,Email,Password,FirstName,LastName,Role")]User user, SignUp signup)
+        public ActionResult SignUp(UserViewModel uvm)
         {
-
-            if (signup.ConfirmPassword != signup.Password)
+            UserModel um = new UserModel();
+            try
             {
-                ModelState.AddModelError("ConfirmPassword", "Passwords don't match");
-            }       
-            if (ModelState.IsValid)
-            {
-                db.Users.Add(user);
-                db.SaveChanges();
+                um.addUser(uvm.User);
                 return RedirectToAction("Login");
             }
-            else
+            catch (Exception)
             {
+                ViewBag.Error = "Sign up failed.";
                 return View();
             }
         }
@@ -81,6 +77,7 @@ namespace JKBB_CVGS.Controllers
             return View();
         }
 
+        [CustomAuthorize(Roles = "Member,Employee")]
         public ActionResult LogOut()
         {
             SessionPersister.Email = string.Empty;

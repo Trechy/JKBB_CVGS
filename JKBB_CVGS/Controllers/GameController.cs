@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using JKBB_CVGS.Models;
 using System.Configuration;
 using System.Data.SqlClient;
+using JKBB_CVGS.Security;
 
 namespace JKBB_CVGS.Controllers
 {
@@ -17,24 +18,26 @@ namespace JKBB_CVGS.Controllers
         private CVGS_Context db = new CVGS_Context();
 
         // GET: Game
-        public ActionResult Index()
-        {
-            return View(db.Games.ToList());
-        }
+        //public ActionResult Index()
+        //{
+        //    return View(db.Games.ToList());
+        //}
 
         //https://docs.microsoft.com/en-us/aspnet/core/tutorials/first-mvc-app/search
 
-        //public ActionResult Index(string email, string searchString)
-        //{
-        //    var gameResult = from Game in db.Games select Game.Title;
-        //    if (!String.IsNullOrEmpty(searchString))
-        //    {
-        //        gameResult = gameResult.Where(g => g.Title.Contains(searchString));
-        //    }
-        //    return View(gameResult.ToList());
-        //}
+        [CustomAuthorize(Roles = "Member,Employee")]
+        public ActionResult Index(string searchString = "")
+        {
+            var gameResult = from Game in db.Games select Game;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                gameResult = gameResult.Where(g => g.Title.Contains(searchString));
+            }
+            return View(gameResult.ToList());
+        }
 
         // GET: Game/Details/5
+        [CustomAuthorize(Roles = "Member,Employee")]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -50,6 +53,7 @@ namespace JKBB_CVGS.Controllers
         }
 
         // GET: Game/Create
+        [CustomAuthorize(Roles = "Employee")]
         public ActionResult Create()
         {
             return View();
@@ -60,6 +64,7 @@ namespace JKBB_CVGS.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [CustomAuthorize(Roles = "Employee")]
         public ActionResult Create([Bind(Include = "GameID,Title,Developer,Publisher,ReleasedDate,BasePrice,Discount")] Game game)
         {
             if (ModelState.IsValid)
@@ -73,6 +78,7 @@ namespace JKBB_CVGS.Controllers
         }
 
         // GET: Game/Edit/5
+        [CustomAuthorize(Roles = "Employee")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -92,6 +98,7 @@ namespace JKBB_CVGS.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [CustomAuthorize(Roles = "Employee")]
         public ActionResult Edit([Bind(Include = "GameID,Title,Developer,Publisher,ReleasedDate,BasePrice,Discount")] Game game)
         {
             if (ModelState.IsValid)
@@ -104,6 +111,7 @@ namespace JKBB_CVGS.Controllers
         }
 
         // GET: Game/Delete/5
+        [CustomAuthorize(Roles = "Employee")]
         public ActionResult Delete(int? id)
         {
             Game game = db.Games.Find(id);

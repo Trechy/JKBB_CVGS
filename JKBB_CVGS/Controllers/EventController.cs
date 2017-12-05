@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using JKBB_CVGS.Models;
 using System.Configuration;
 using System.Data.SqlClient;
+using JKBB_CVGS.Security;
 
 namespace JKBB_CVGS.Controllers
 {
@@ -18,12 +19,14 @@ namespace JKBB_CVGS.Controllers
         public bool CanEdit = false;
 
         // GET: Event
+        [CustomAuthorize(Roles = "Member,Employee")]
         public ActionResult Index()
         {
             return View(db.Events.ToList());
         }
 
         // GET: Event/Details/5
+        [CustomAuthorize(Roles = "Member,Employee")]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -39,6 +42,7 @@ namespace JKBB_CVGS.Controllers
         }
 
         // GET: Event/Create
+        [CustomAuthorize(Roles = "Employee")]
         public ActionResult Create()
         {
             return View();
@@ -49,6 +53,7 @@ namespace JKBB_CVGS.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [CustomAuthorize(Roles = "Employee")]
         public ActionResult Create([Bind(Include = "EventID,EventName,EventDate,Description")] Event @event)
         {
             if (ModelState.IsValid)
@@ -62,6 +67,7 @@ namespace JKBB_CVGS.Controllers
         }
 
         // GET: Event/Edit/5
+        [CustomAuthorize(Roles = "Employee")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -81,6 +87,7 @@ namespace JKBB_CVGS.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [CustomAuthorize(Roles = "Employee")]
         public ActionResult Edit([Bind(Include = "EventID,EventName,EventDate,Description")] Event @event)
         {
             if (ModelState.IsValid)
@@ -93,6 +100,7 @@ namespace JKBB_CVGS.Controllers
         }
 
         // GET: Event/Delete/5
+        [CustomAuthorize(Roles = "Employee")]
         public ActionResult Delete(int? id)
         {
             Event @event = db.Events.Find(id);

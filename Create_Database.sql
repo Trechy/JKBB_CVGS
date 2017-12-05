@@ -20,14 +20,14 @@ CREATE TABLE [dbo].[User]
     [City]        VARCHAR (25),
     [Province]    VARCHAR (25),
     [PostalCode]  VARCHAR (6),
-    [phoneNumber] VARCHAR (10),
+    [PhoneNumber] VARCHAR (10),
 	PRIMARY KEY ([Email])
 )
 GO
 INSERT INTO [dbo].[User]
-	([Email],[Password],[Role],[FirstName],[LastName],[Gender],[DateOfBirth],[Address],[City],[Province],[PostalCode],[phoneNumber])
+	([Email],[Password],[Role],[FirstName],[LastName],[Gender],[DateOfBirth],[Address],[City],[Province],[PostalCode],[PhoneNumber])
 VALUES
-	('user@test.com', 'password', 'Member','testFirstName','testLastName','F', convert(date,'19971006'), '11 hello street', 'Kitchener', 'ON', 'N1N2N3','5191234567'),
+	('member@test.com', 'password', 'Member','testFirstName','testLastName','F', convert(date,'19971006'), '11 hello street', 'Kitchener', 'ON', 'N1N2N3','5191234567'),
 	('employee@test.com', 'password', 'Employee','testFirstName','testLastName','F', convert(date,'19971006'), '11 hello street', 'Kitchener', 'ON', 'N1N2N3','5191234567');;
 GO
 SELECT * FROM [dbo].[User];
@@ -85,7 +85,7 @@ GO
 INSERT INTO [dbo].[Wishlist]
 	([Email],[GameID],[AddDate])
 VALUES
-	('user@test.com', 1, convert(datetime,'20171006 10:34:09 PM'));
+	('member@test.com', 1, convert(datetime,'20171006 10:34:09 PM'));
 GO
 SELECT * FROM [dbo].[Wishlist];
 GO
@@ -100,7 +100,7 @@ GO
 INSERT INTO [dbo].[Register]
 	([Email],[EventID])
 VALUES
-	('user@test.com', 1);
+	('member@test.com', 1);
 GO
 SELECT * FROM [dbo].[Register];
 GO
@@ -119,7 +119,7 @@ GO
 INSERT INTO [dbo].[Cart]
 	([Email],[GameID],[Quantity])
 VALUES
-	('user@test.com', 1, 2);
+	('member@test.com', 1, 2);
 GO
 SELECT * FROM [dbo].[Cart];
 GO

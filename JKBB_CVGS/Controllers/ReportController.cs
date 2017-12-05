@@ -1,4 +1,5 @@
 ﻿using JKBB_CVGS.Models;
+using JKBB_CVGS.Security;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -12,6 +13,7 @@ namespace JKBB_CVGS.Controllers
     public class ReportController : Controller
     {
         // GET: Report
+        [CustomAuthorize(Roles = "Employee")]
         public ActionResult Index()
         {
             //Query for member list report

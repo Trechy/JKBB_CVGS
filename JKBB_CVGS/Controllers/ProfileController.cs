@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using JKBB_CVGS.Models;
+using JKBB_CVGS.Security;
 
 namespace JKBB_CVGS.Controllers
 {
@@ -15,6 +16,7 @@ namespace JKBB_CVGS.Controllers
         private CVGS_Context db = new CVGS_Context();
 
         // GET: Profile/Details/5
+        [CustomAuthorize(Roles = "Member,Employee")]
         public ActionResult Index(string email)
         {
             if (email == null)
@@ -30,6 +32,7 @@ namespace JKBB_CVGS.Controllers
         }
 
         // GET: Profile/Edit/5
+        [CustomAuthorize(Roles = "Member,Employee")]
         public ActionResult Edit(string email)
         {
             if (email == null)
@@ -49,7 +52,8 @@ namespace JKBB_CVGS.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Email,Password,Role,FirstName,LastName,Gender,DateOfBirth,Address,City,Province,PostalCode,phoneNumber")] User user)
+        [CustomAuthorize(Roles = "Member,Employee")]
+        public ActionResult Edit([Bind(Include = "Email,Password,Role,FirstName,LastName,Gender,DateOfBirth,Address,City,Province,PostalCode,PhoneNumber")] User user)
         {
             if (ModelState.IsValid)
             {

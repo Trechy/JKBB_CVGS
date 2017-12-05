@@ -99,7 +99,7 @@ namespace JKBB_CVGS.Models
                 .IsUnicode(false);
 
             modelBuilder.Entity<User>()
-                .Property(e => e.phoneNumber)
+                .Property(e => e.PhoneNumber)
                 .IsUnicode(false);
 
             modelBuilder.Entity<User>()

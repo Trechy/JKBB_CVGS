@@ -7,6 +7,14 @@
 
 <h2>Games</h2>
 
+@using (Html.BeginForm())
+{
+    <p>
+        @Html.TextBox("searchString")
+        <input type="submit" value="Search" />
+    </p>
+}
+
 <p>
     @if (SessionPersister.Role == "Employee")
     {
