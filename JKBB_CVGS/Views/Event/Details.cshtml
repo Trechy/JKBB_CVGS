@@ -1,5 +1,5 @@
 ﻿@model JKBB_CVGS.Models.Event
-
+@using JKBB_CVGS.Security
 @{
     ViewBag.Title = "Details";
 }
@@ -37,6 +37,13 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.EventID }) |
+    @if(SessionPersister.Role == "Employee")
+    {
+        @Html.ActionLink("Edit", "Edit", new { id = Model.EventID }) 
+    }
     @Html.ActionLink("Back to List", "Index")
+    @if(SessionPersister.Role == "Member")
+    {
+         @Html.ActionLink("Register", "Register", new { email = SessionPersister.Email, id = Model.EventID })
+    }
 </p>

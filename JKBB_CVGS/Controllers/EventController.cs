@@ -24,6 +24,20 @@ namespace JKBB_CVGS.Controllers
         {
             return View(db.Events.ToList());
         }
+        [CustomAuthorize(Roles = "Member")]
+        public ActionResult Register(string userEmail, int eventID)
+        {
+            using(CVGS_Context context = new CVGS_Context())
+            {
+                UserModel um = new UserModel();
+                User user = um.getUser(userEmail);
+                var eventResult = from Event in db.Events
+                                  where Event.EventID == eventID
+                                  select Event;
+                user.Events.Add(eventResult.FirstOrDefault());
+            }
+            return View();
+        }
 
         // GET: Event/Details/5
         [CustomAuthorize(Roles = "Member,Employee")]
@@ -42,6 +56,8 @@ namespace JKBB_CVGS.Controllers
         }
 
         // GET: Event/Create
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         [CustomAuthorize(Roles = "Employee")]
         public ActionResult Create()
         {

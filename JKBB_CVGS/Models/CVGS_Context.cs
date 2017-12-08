@@ -15,6 +15,7 @@ namespace JKBB_CVGS.Models
         public virtual DbSet<Cart> Carts { get; set; }
         public virtual DbSet<Event> Events { get; set; }
         public virtual DbSet<Game> Games { get; set; }
+        public virtual DbSet<Register> Registers { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Wishlist> Wishlists { get; set; }
 
@@ -57,6 +58,10 @@ namespace JKBB_CVGS.Models
                 .HasMany(e => e.Wishlists)
                 .WithRequired(e => e.Game)
                 .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Register>()
+                .Property(e => e.Email)
+                .IsUnicode(false);
 
             modelBuilder.Entity<User>()
                 .Property(e => e.Email)
