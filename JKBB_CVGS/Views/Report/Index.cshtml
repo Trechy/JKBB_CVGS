@@ -7,64 +7,67 @@
 <h3>Member List Report</h3>   
 <table class="table">
     <tr>
-        <th>Full Name</th>
         <th>User Email</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Role</th>
         <th>Item Purchased</th>
     </tr>            
-    <tr>
-        @foreach (var item in ViewBag.UserNameList)
-        {
-            <td>@item.Value</td>
-        }
-        @foreach (var item in ViewBag.UserEmailList)
-        {
-            <td>@item.Value</td>
-        }
-        @foreach (var item in ViewBag.ItemPurchasedList)
-        {
-            <td>@item.Value</td>
-        }
-    </tr>
+    @foreach (var item in ViewBag.users)
+     {
+        <tr>
+            <td>@item.Email</td>
+            <td>@item.FirstName</td>
+            <td>@item.LastName</td>
+            <td>@item.Role</td>
+            <td>0</td>                
+        </tr>
+     }
 </table>
 
 <p></p>
 <h3>Game List Report</h3>
 <table class="table">
     <tr>
+        <th>Game ID</th>
         <th>Game Title</th>
         <th>Developer</th>
         <th>Release Date</th>
-        <th>User Rating</th>
         <th>Base Price(CAD)</th>
         <th>Current Discount</th>
     </tr>
-    <tr>
-        @foreach (var item in ViewBag.GameTitleList)
-        {
-            <td>@item.Value</td>
-        }
-        @foreach (var item in ViewBag.DeveloperList)
-        {
-            <td>@item.Value</td>
-        }
-        @foreach (var item in ViewBag.ReleasedDateList)
-        {
-            <td>@item.Value</td>
-        }
-        @foreach (var item in ViewBag.UserRatingList)
-        {
-            <td>@item.Value</td>
-        }
-        @foreach (var item in ViewBag.BasePriceList)
-        {
-            <td>@item.Value</td>
-        }
-        @foreach (var item in ViewBag.DiscountList)
-        {
-            <td>@item.Value</td>
-        }
-    </tr>
+    @foreach (var item in ViewBag.games)
+    {
+        <tr>
+            <td>@item.GameID</td>
+            <td>@item.Title</td>
+            <td>@item.Developer</td>
+            <td>@item.ReleasedDate</td>
+            <td>@item.BasePrice</td>
+            <td>@item.Discount</td>
+        </tr>
+    }
 </table>
 
+
+<p></p>
+<h3>Wishlist Report</h3>
+<table class="table">
+    <tr>
+        <th>Wishlist ID</th>
+        <th>Game Title</th>
+        <th>User Email</th>
+        <th>Added Date</th>
+    </tr>
+    @foreach (var item in ViewBag.wishlists)
+    {
+        <tr>
+            <td>@item.WishlistID</td>
+            <td>@item.Game.Title</td>
+            <td>@item.Email</td>
+            <td>@item.AddDate</td>
+        </tr>
+    }
+</table>
 
 
