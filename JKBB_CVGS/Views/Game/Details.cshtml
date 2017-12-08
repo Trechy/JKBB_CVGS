@@ -1,5 +1,5 @@
 ﻿@model JKBB_CVGS.Models.Game
-
+@using JKBB_CVGS.Security
 @{
     ViewBag.Title = "Details";
 }
@@ -61,6 +61,10 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.GameID }) |
-    @Html.ActionLink("Back to List", "Index")
+    @if (SessionPersister.Role == "Member")
+    {
+        @Html.ActionLink("Add to Wishlist", "Create", "Wishlists", new { email = SessionPersister.Email, GameID = Model.GameID, AddDate = System.DateTime.Now },null) 
+    }
+    @Html.ActionLink("Edit", "Edit", "Game", new { id = Model.GameID }) |
+    @Html.ActionLink("Back to List", "Index", "Game")
 </p>
