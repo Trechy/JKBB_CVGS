@@ -27,7 +27,8 @@ namespace JKBB_CVGS.Controllers
         [CustomAuthorize(Roles = "Member")]
         public ActionResult Register(string userEmail, int eventID)
         {
-            using(CVGS_Context context = new CVGS_Context())
+            ViewBag.Registered = false;
+            using (CVGS_Context context = new CVGS_Context())
             {
                 UserModel um = new UserModel();
                 User user = um.getUser(userEmail);
@@ -35,8 +36,13 @@ namespace JKBB_CVGS.Controllers
                                   where Event.EventID == eventID
                                   select Event;
                 user.Events.Add(eventResult.FirstOrDefault());
+                db.SaveChanges();
+                if(db.SaveChanges() > 0)
+                {
+                    ViewBag.Registered = true;
+                }
             }
-            return View();
+            return RedirectToAction("Index");
         }
 
         // GET: Event/Details/5

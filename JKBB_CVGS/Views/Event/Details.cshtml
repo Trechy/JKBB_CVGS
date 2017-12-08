@@ -8,6 +8,13 @@
 
 <div>
     <h4>Event</h4>
+    <p>
+        @if (SessionPersister.Role == "Employee")
+        {
+            @Html.ActionLink("Edit", "Edit", new { id = Model.EventID })
+        }
+        @Html.ActionLink("Back to List", "Index")
+    </p>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -33,17 +40,14 @@
         <dd>
             @Html.DisplayFor(model => model.Description)
         </dd>
-
     </dl>
 </div>
 <p>
-    @if(SessionPersister.Role == "Employee")
-    {
-        @Html.ActionLink("Edit", "Edit", new { id = Model.EventID }) 
-    }
-    @Html.ActionLink("Back to List", "Index")
     @if(SessionPersister.Role == "Member")
     {
-         @Html.ActionLink("Register", "Register", new { email = SessionPersister.Email, id = Model.EventID })
+         if(ViewBag.Registered = false)
+         {
+              @Html.ActionLink("Register", "Register", new { userEmail = SessionPersister.Email, eventID = Model.EventID }, new { @class = "btn btn-default" })
+         }
     }
 </p>
