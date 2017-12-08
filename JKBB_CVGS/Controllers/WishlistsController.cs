@@ -55,7 +55,7 @@ namespace JKBB_CVGS.Controllers
             db.Wishlists.Add(wishlist);
             db.SaveChanges();
 
-            return RedirectToAction("Index", email);
+            return RedirectToAction("Index",new { email=email});
         }
 
         // POST: Wishlists/Create
