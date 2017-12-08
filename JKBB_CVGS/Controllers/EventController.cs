@@ -27,27 +27,21 @@ namespace JKBB_CVGS.Controllers
         [CustomAuthorize(Roles = "Member")]
         public ActionResult Register(string userEmail, int eventID)
         {
-            ViewBag.Registered = false;
-            using (CVGS_Context context = new CVGS_Context())
+            //ViewBag.Registered = false;
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["Register"].ToString()))
             {
-                UserModel um = new UserModel();
-                User user = um.getUser(userEmail);
-                var eventResult = from Event in db.Events
-                                  where Event.EventID == eventID
-                                  select Event;
-                user.Events.Add(eventResult.FirstOrDefault());
-                db.SaveChanges();
-                if(db.SaveChanges() > 0)
-                {
-                    ViewBag.Registered = true;
-                }
+                SqlCommand command = new SqlCommand("INSERT INTO Register (Email, EventID) VALUES(@sqlUserEmail, @sqlEventID); ", connection);
+                command.Parameters.AddWithValue("@sqlUserEmail", userEmail);
+                command.Parameters.AddWithValue("@sqlEventID", eventID);
+                command.Connection.Open();
+                command.ExecuteNonQuery();
             }
             return RedirectToAction("Index");
         }
 
         // GET: Event/Details/5
         [CustomAuthorize(Roles = "Member,Employee")]
-        public ActionResult Details(int? id)
+        public ActionResult Details(int? id, string userEmail)
         {
             if (id == null)
             {
@@ -57,6 +51,22 @@ namespace JKBB_CVGS.Controllers
             if (@event == null)
             {
                 return HttpNotFound();
+            }
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["Register"].ToString()))
+            {
+                SqlCommand command = new SqlCommand("SELECT * FROM Register WHERE Email = @sqlUserEmail AND EventID = @sqlEventID; ", connection);
+                command.Parameters.AddWithValue("@sqlUserEmail", userEmail);
+                command.Parameters.AddWithValue("@sqlEventID", id);
+                command.Connection.Open();
+                object returnsNull = command.ExecuteScalar();
+                if (returnsNull != null)
+                {
+                    ViewBag.Registered = true;
+                }
+                else
+                {
+                    ViewBag.Registered = false;
+                }
             }
             return View(@event);
         }

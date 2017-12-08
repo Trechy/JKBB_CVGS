@@ -38,7 +38,7 @@
             @Html.DisplayFor(modelItem => item.Description)
         </td>
         <td>
-            @Html.ActionLink("Details", "Details", new { id = item.EventID })        
+            @Html.ActionLink("Details", "Details", new { id = item.EventID, userEmail = SessionPersister.Email })        
             @if (SessionPersister.Role == "Employee")
             {
                 @Html.ActionLink("Edit", "Edit", new { id = item.EventID })

@@ -43,11 +43,11 @@
     </dl>
 </div>
 <p>
-    @if(SessionPersister.Role == "Member")
+    @if (SessionPersister.Role == "Member")
     {
-         if(ViewBag.Registered = false)
-         {
-              @Html.ActionLink("Register", "Register", new { userEmail = SessionPersister.Email, eventID = Model.EventID }, new { @class = "btn btn-default" })
-         }
+        if (ViewBag.Registered == false)
+        {
+            @Html.ActionLink("Register", "Register", new { userEmail = SessionPersister.Email, eventID = Model.EventID }, new { @class = "btn btn-default" })
+        }
     }
 </p>
