@@ -70,4 +70,48 @@
     }
 </table>
 
+<p></p>
+<h3>CartList Report</h3>
+<table class="table">
+    <tr>
+        <th>CartList ID</th>
+        <th>User Email</th>
+        <th>Game Title</th>
+        <th>Release Date</th>
+        <th>Base Price(CAD)</th>
+        <th>Current Discount</th>
+    </tr>
+    @foreach (var item in ViewBag.carts)
+    {
+        <tr>
+            <td>@item.CartID</td>
+            <td>@item.Email</td>
+            <td>@item.Game.Title</td>
+            <td>@item.Game.ReleasedDate</td>
+            <td>@item.Game.BasePrice</td>
+            <td>@item.Game.Discount</td>
+        </tr>
+    }
+</table>
+
+<p></p>
+<h3>LibraryList Report</h3>
+<table class="table">
+    <tr>
+        <th>LibraryList ID</th>
+        <th>User Email</th>
+        <th>Game Title</th>
+        <th>Release Date</th>
+    </tr>
+    @foreach (var item in ViewBag.librarys)
+    {
+        <tr>
+            <td>@item.OwnGameID</td>
+            <td>@item.Email</td>
+            <td>@item.Game.Title</td>
+            <td>@item.Game.ReleasedDate</td>
+        </tr>
+    }
+</table>
+
 

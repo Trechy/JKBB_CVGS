@@ -29,6 +29,13 @@ namespace JKBB_CVGS.Controllers
             List<Wishlist> wishlists = db.Wishlists.ToList();
             ViewBag.wishlists = wishlists;
 
+            //Query for cart list report 
+            List<Cart> carts = db.Carts.ToList();
+            ViewBag.carts = carts;
+
+            //Query for library list report 
+            List<OwnGame> librarys = db.OwnGames.ToList();
+            ViewBag.librarys = librarys;
             return View();
         }
     }
