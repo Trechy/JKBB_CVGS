@@ -263,6 +263,7 @@
     <Content Include="Views\OwnGame\Details.cshtml" />
     <Content Include="Views\OwnGame\Edit.cshtml" />
     <Content Include="Views\OwnGame\Index.cshtml" />
+    <Content Include="Views\Cart\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Reports\" />

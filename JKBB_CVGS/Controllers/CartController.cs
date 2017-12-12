@@ -56,6 +56,39 @@ namespace JKBB_CVGS.Controllers
             return RedirectToAction("Index", new { email = email });
         }
 
+        // GET: Game/Edit/5
+        [CustomAuthorize(Roles = "Member")]
+        public ActionResult Edit(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Cart cart = db.Carts.Find(id);
+            if (cart == null)
+            {
+                return HttpNotFound();
+            }
+            return View(cart);
+        }
+
+        // POST: Game/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [CustomAuthorize(Roles = "Member")]
+        public ActionResult Edit([Bind(Include = "CartID,Email,GameID,Quantity")] Cart cart)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(cart).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index", new { email = SessionPersister.Email });
+            }
+            return View(cart);
+        }
+
         // POST: Cart/Delete/5
         [CustomAuthorize(Roles = "Member")]
         public ActionResult Delete(int? id)
