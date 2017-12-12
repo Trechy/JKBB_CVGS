@@ -1,4 +1,5 @@
 ﻿/*
+DROP TABLE [dbo].[[OwnGame]]
 DROP TABLE [dbo].[Cart]
 DROP TABLE [dbo].[Wishlist]
 DROP TABLE [dbo].[Register]
@@ -122,4 +123,21 @@ VALUES
 	('member@test.com', 1, 2);
 GO
 SELECT * FROM [dbo].[Cart];
+GO
+
+CREATE TABLE [dbo].[OwnGame] (
+    [OwnGameID]		INT         NOT NULL IDENTITY,
+    [Email] VARCHAR(50)		NOT NULL,
+    [GameID]			INT			NOT NULL,
+    PRIMARY KEY ([OwnGameID]),
+	FOREIGN KEY ([Email]) REFERENCES [dbo].[User]([Email]),
+	FOREIGN KEY ([GameID]) REFERENCES [dbo].[Game]([GameID])
+);
+GO
+INSERT INTO [dbo].[OwnGame]
+	([Email],[GameID])
+VALUES
+	('member@test.com', 1);
+GO
+SELECT * FROM [dbo].[OwnGame];
 GO
