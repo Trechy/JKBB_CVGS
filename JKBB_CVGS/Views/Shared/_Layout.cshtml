@@ -23,6 +23,11 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    @if (SessionPersister.Role == "Member")
+                    {
+                        <li>@Html.ActionLink("Library", "Index", "OwnGame")</li>
+                        <li>@Html.ActionLink("Cart", "Index", "Cart")</li>
+                    }
                     @if (SessionPersister.Role == "Employee")
                     {
                         <li>@Html.ActionLink("Report", "Index", "Report")</li>

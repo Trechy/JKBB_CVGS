@@ -157,6 +157,7 @@
     <Compile Include="Controllers\EventController.cs" />
     <Compile Include="Controllers\GameController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\OwnGameController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Controllers\WishlistsController.cs" />
@@ -261,6 +262,11 @@
     <Content Include="Views\Cart\Details.cshtml" />
     <Content Include="Views\Cart\Edit.cshtml" />
     <Content Include="Views\Cart\Index.cshtml" />
+    <Content Include="Views\OwnGame\Create.cshtml" />
+    <Content Include="Views\OwnGame\Delete.cshtml" />
+    <Content Include="Views\OwnGame\Details.cshtml" />
+    <Content Include="Views\OwnGame\Edit.cshtml" />
+    <Content Include="Views\OwnGame\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Reports\" />
