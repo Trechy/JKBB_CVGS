@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using JKBB_CVGS.Models;
+using JKBB_CVGS.Security;
 
 namespace JKBB_CVGS.Controllers
 {
@@ -15,13 +16,15 @@ namespace JKBB_CVGS.Controllers
         private CVGS_Context db = new CVGS_Context();
 
         // GET: Cart
-        public ActionResult Index()
+        [CustomAuthorize(Roles = "Member")]
+        public ActionResult Index(string email)
         {
-            var carts = db.Carts.Include(c => c.Game).Include(c => c.User);
+            var carts = db.Carts.Include(c => c.Game).Include(c => c.User).Where(w => w.Email.Contains(email));
             return View(carts.ToList());
         }
 
         // GET: Cart/Details/5
+        [CustomAuthorize(Roles = "Member")]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -37,33 +40,25 @@ namespace JKBB_CVGS.Controllers
         }
 
         // GET: Cart/Create
-        public ActionResult Create()
+        [CustomAuthorize(Roles = "Member")]
+        public ActionResult Create(string email, int GameID)
         {
-            ViewBag.GameID = new SelectList(db.Games, "GameID", "Title");
-            ViewBag.Email = new SelectList(db.Users, "Email", "Password");
-            return View();
+            ViewBag.GameID = GameID;
+            ViewBag.Email = email;
+
+            Cart cart = new Cart();
+            cart.Email = email;
+            cart.GameID = GameID;
+            cart.Quantity = 1;
+
+            db.Carts.Add(cart);
+            db.SaveChanges();
+            return RedirectToAction("Index", new { email = email });
         }
 
-        // POST: Cart/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "CartID,Email,GameID,Quantity")] Cart cart)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Carts.Add(cart);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            ViewBag.GameID = new SelectList(db.Games, "GameID", "Title", cart.GameID);
-            ViewBag.Email = new SelectList(db.Users, "Email", "Password", cart.Email);
-            return View(cart);
-        }
 
         // GET: Cart/Edit/5
+        [CustomAuthorize(Roles = "Member")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -83,6 +78,7 @@ namespace JKBB_CVGS.Controllers
         // POST: Cart/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [CustomAuthorize(Roles = "Member")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "CartID,Email,GameID,Quantity")] Cart cart)
@@ -99,6 +95,7 @@ namespace JKBB_CVGS.Controllers
         }
 
         // GET: Cart/Delete/5
+        [CustomAuthorize(Roles = "Member")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -114,6 +111,7 @@ namespace JKBB_CVGS.Controllers
         }
 
         // POST: Cart/Delete/5
+        [CustomAuthorize(Roles = "Member")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

@@ -63,7 +63,10 @@
 <p>
     @if (SessionPersister.Role == "Member")
     {
-        @Html.ActionLink("Add to Wishlist", "Create", "Wishlists", new { email = SessionPersister.Email, GameID = Model.GameID, AddDate = System.DateTime.Now },null) 
+        @Html.ActionLink("Add to Wishlist", "Create", "Wishlists", new { email = SessionPersister.Email, GameID = Model.GameID, AddDate = System.DateTime.Now },null)
+        @:&nbsp;
+        @Html.ActionLink("Add to Cart", "Create", "Cart", new { email = SessionPersister.Email, GameID = Model.GameID}, null)
+        @:&nbsp;
     }
     @Html.ActionLink("Edit", "Edit", "Game", new { id = Model.GameID }) |
     @Html.ActionLink("Back to List", "Index", "Game")

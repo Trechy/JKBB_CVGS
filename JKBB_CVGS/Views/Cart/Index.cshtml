@@ -7,16 +7,19 @@
 
 <h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table class="table">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Game.Title)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.User.Password)
+            @Html.DisplayNameFor(model => model.Game.ReleasedDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Game.Discount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Game.BasePrice)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Quantity)
@@ -30,17 +33,24 @@
             @Html.DisplayFor(modelItem => item.Game.Title)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.User.Password)
+            @Html.DisplayFor(modelItem => item.Game.ReleasedDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Game.Discount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Game.BasePrice)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Quantity)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.CartID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.CartID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.CartID })
+            @Html.ActionLink("Edit", "Edit", "Cart", new { id=item.CartID }) |
+            @Html.ActionLink("Remove", "Delete", "Cart", new { id=item.CartID })
         </td>
     </tr>
 }
 
 </table>
+
+@Html.ActionLink("Buy", "Edit", "Cart", new { }) |

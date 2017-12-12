@@ -58,27 +58,6 @@ namespace JKBB_CVGS.Controllers
             return RedirectToAction("Index",new { email=email});
         }
 
-        // POST: Wishlists/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        [CustomAuthorize(Roles = "Member")]
-        public ActionResult Create([Bind(Include = "WishlistID,Email,GameID,AddDate")] Wishlist wishlist)
-        {
-
-            if (ModelState.IsValid)
-            {
-                db.Wishlists.Add(wishlist);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            ViewBag.GameID = new SelectList(db.Games, "GameID", "Title", wishlist.GameID);
-            ViewBag.Email = new SelectList(db.Users, "Email", "Password", wishlist.Email);
-            return View(wishlist);
-        }
-
         // GET: Wishlists/Edit/5
         [CustomAuthorize(Roles = "Member")]
         public ActionResult Edit(int? id)
