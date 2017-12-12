@@ -1,21 +1,18 @@
 ﻿@model IEnumerable<JKBB_CVGS.Models.OwnGame>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Library";
 }
 
 <h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table class="table">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Game.Title)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.User.Password)
+            @Html.DisplayNameFor(model => model.Game.Developer)
         </th>
         <th></th>
     </tr>
@@ -26,12 +23,10 @@
             @Html.DisplayFor(modelItem => item.Game.Title)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.User.Password)
+            @Html.DisplayFor(modelItem => item.Game.Developer)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.OwnGameID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.OwnGameID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.OwnGameID })
+            @Html.ActionLink("Play", "", "")
         </td>
     </tr>
 }
