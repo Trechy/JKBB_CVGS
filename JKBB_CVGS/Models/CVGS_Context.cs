@@ -15,6 +15,7 @@ namespace JKBB_CVGS.Models
         public virtual DbSet<Cart> Carts { get; set; }
         public virtual DbSet<Event> Events { get; set; }
         public virtual DbSet<Game> Games { get; set; }
+        public virtual DbSet<OwnGame> OwnGames { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Wishlist> Wishlists { get; set; }
 
@@ -54,9 +55,18 @@ namespace JKBB_CVGS.Models
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Game>()
+                .HasMany(e => e.OwnGames)
+                .WithRequired(e => e.Game)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Game>()
                 .HasMany(e => e.Wishlists)
                 .WithRequired(e => e.Game)
                 .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<OwnGame>()
+                .Property(e => e.Email)
+                .IsUnicode(false);
 
             modelBuilder.Entity<User>()
                 .Property(e => e.Email)
@@ -64,11 +74,11 @@ namespace JKBB_CVGS.Models
 
             modelBuilder.Entity<User>()
                 .Property(e => e.Password)
-                .IsFixedLength();
+                .IsUnicode(false);
 
             modelBuilder.Entity<User>()
                 .Property(e => e.Role)
-                .IsFixedLength();
+                .IsUnicode(false);
 
             modelBuilder.Entity<User>()
                 .Property(e => e.FirstName)
@@ -104,6 +114,11 @@ namespace JKBB_CVGS.Models
 
             modelBuilder.Entity<User>()
                 .HasMany(e => e.Carts)
+                .WithRequired(e => e.User)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<User>()
+                .HasMany(e => e.OwnGames)
                 .WithRequired(e => e.User)
                 .WillCascadeOnDelete(false);
 

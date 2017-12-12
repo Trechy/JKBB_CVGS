@@ -13,6 +13,7 @@ namespace JKBB_CVGS.Models
         public Game()
         {
             Carts = new HashSet<Cart>();
+            OwnGames = new HashSet<OwnGame>();
             Wishlists = new HashSet<Wishlist>();
         }
 
@@ -39,6 +40,9 @@ namespace JKBB_CVGS.Models
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Cart> Carts { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<OwnGame> OwnGames { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Wishlist> Wishlists { get; set; }
