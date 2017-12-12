@@ -257,7 +257,6 @@
     <Content Include="Scripts\jquery-3.2.1.min.map" />
     <Content Include="Views\Cart\Create.cshtml" />
     <Content Include="Views\Cart\Details.cshtml" />
-    <Content Include="Views\Cart\Edit.cshtml" />
     <Content Include="Views\Cart\Index.cshtml" />
     <Content Include="Views\OwnGame\Create.cshtml" />
     <Content Include="Views\OwnGame\Delete.cshtml" />

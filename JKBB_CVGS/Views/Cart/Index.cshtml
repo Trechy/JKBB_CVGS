@@ -16,10 +16,10 @@
             @Html.DisplayNameFor(model => model.Game.ReleasedDate)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Game.Discount)
+            @Html.DisplayNameFor(model => model.Game.BasePrice)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Game.BasePrice)
+            @Html.DisplayNameFor(model => model.Game.Discount)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Quantity)
@@ -36,16 +36,15 @@
             @Html.DisplayFor(modelItem => item.Game.ReleasedDate)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Game.Discount)
+            @Html.DisplayFor(modelItem => item.Game.BasePrice)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Game.BasePrice)
+            @Html.DisplayFor(modelItem => item.Game.Discount)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Quantity)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", "Cart", new { id=item.CartID }) |
             @Html.ActionLink("Remove", "Delete", "Cart", new { id=item.CartID }, new { onclick = "return confirm('Are you sure you wish to delete this game?');" })
         </td>
     </tr>
@@ -53,4 +52,4 @@
 
 </table>
 
-@Html.ActionLink("Buy", "Edit", "Cart", new { }) 
+@Html.ActionLink("Buy", "Edit", "Cart", new { @class = "btn btn-default" }) 
