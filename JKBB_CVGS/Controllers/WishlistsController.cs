@@ -23,22 +23,6 @@ namespace JKBB_CVGS.Controllers
             return View(wishlists.ToList());
         }
 
-        // GET: Wishlists/Details/5
-        [CustomAuthorize(Roles = "Member")]
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Wishlist wishlist = db.Wishlists.Find(id);
-            if (wishlist == null)
-            {
-                return HttpNotFound();
-            }
-            return View(wishlist);
-        }
-
         // GET: Wishlists/Create
         [CustomAuthorize(Roles = "Member")]
         public ActionResult Create(string email, int GameID, DateTime AddDate)
@@ -58,69 +42,14 @@ namespace JKBB_CVGS.Controllers
             return RedirectToAction("Index",new { email=email});
         }
 
-        // GET: Wishlists/Edit/5
-        [CustomAuthorize(Roles = "Member")]
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Wishlist wishlist = db.Wishlists.Find(id);
-            if (wishlist == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.GameID = new SelectList(db.Games, "GameID", "Title", wishlist.GameID);
-            ViewBag.Email = new SelectList(db.Users, "Email", "Password", wishlist.Email);
-            return View(wishlist);
-        }
-
-        // POST: Wishlists/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        [CustomAuthorize(Roles = "Member")]
-        public ActionResult Edit([Bind(Include = "WishlistID,Email,GameID,AddDate")] Wishlist wishlist)
-        {
-            if (ModelState.IsValid)
-            {
-                //db.Entry(wishlist).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            ViewBag.GameID = new SelectList(db.Games, "GameID", "Title", wishlist.GameID);
-            ViewBag.Email = new SelectList(db.Users, "Email", "Password", wishlist.Email);
-            return View(wishlist);
-        }
-
-        // GET: Wishlists/Delete/5
+        // POST: Wishlists/Delete/5
         [CustomAuthorize(Roles = "Member")]
         public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Wishlist wishlist = db.Wishlists.Find(id);
-            if (wishlist == null)
-            {
-                return HttpNotFound();
-            }
-            return View(wishlist);
-        }
-
-        // POST: Wishlists/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        [CustomAuthorize(Roles = "Member")]
-        public ActionResult DeleteConfirmed(int id)
         {
             Wishlist wishlist = db.Wishlists.Find(id);
             db.Wishlists.Remove(wishlist);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", new { email = SessionPersister.Email });
         }
 
         protected override void Dispose(bool disposing)

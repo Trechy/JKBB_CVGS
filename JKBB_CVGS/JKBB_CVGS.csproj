@@ -157,6 +157,7 @@
     <Compile Include="Controllers\EventController.cs" />
     <Compile Include="Controllers\GameController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\OwnGameController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Controllers\WishlistsController.cs" />
@@ -250,17 +251,19 @@
     <Content Include="Views\Profile\Edit.cshtml" />
     <Content Include="Views\Profile\Index.cshtml" />
     <Content Include="Views\Wishlists\Create.cshtml" />
-    <Content Include="Views\Wishlists\Delete.cshtml" />
     <Content Include="Views\Wishlists\Details.cshtml" />
-    <Content Include="Views\Wishlists\Edit.cshtml" />
     <Content Include="Views\Wishlists\Index.cshtml" />
     <Content Include="Scripts\jquery-3.2.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.2.1.min.map" />
     <Content Include="Views\Cart\Create.cshtml" />
-    <Content Include="Views\Cart\Delete.cshtml" />
     <Content Include="Views\Cart\Details.cshtml" />
     <Content Include="Views\Cart\Edit.cshtml" />
     <Content Include="Views\Cart\Index.cshtml" />
+    <Content Include="Views\OwnGame\Create.cshtml" />
+    <Content Include="Views\OwnGame\Delete.cshtml" />
+    <Content Include="Views\OwnGame\Details.cshtml" />
+    <Content Include="Views\OwnGame\Edit.cshtml" />
+    <Content Include="Views\OwnGame\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Reports\" />

@@ -94,32 +94,14 @@ namespace JKBB_CVGS.Controllers
             return View(cart);
         }
 
-        // GET: Cart/Delete/5
-        [CustomAuthorize(Roles = "Member")]
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Cart cart = db.Carts.Find(id);
-            if (cart == null)
-            {
-                return HttpNotFound();
-            }
-            return View(cart);
-        }
-
         // POST: Cart/Delete/5
         [CustomAuthorize(Roles = "Member")]
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult Delete(int? id)
         {
             Cart cart = db.Carts.Find(id);
             db.Carts.Remove(cart);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", new { email = SessionPersister.Email });
         }
 
         protected override void Dispose(bool disposing)

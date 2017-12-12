@@ -25,8 +25,8 @@
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     @if (SessionPersister.Role == "Member")
                     {
-                        <li>@Html.ActionLink("Library", "Index", "OwnGame")</li>
-                        <li>@Html.ActionLink("Cart", "Index", "Cart")</li>
+                        <li>@Html.ActionLink("Library", "Index", "OwnGame", new { email = SessionPersister.Email },null)</li>
+                        <li>@Html.ActionLink("Cart", "Index", "Cart", new { email = SessionPersister.Email }, null)</li>
                     }
                     @if (SessionPersister.Role == "Employee")
                     {
