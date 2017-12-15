@@ -8,6 +8,8 @@ using System.Web;
 using System.Web.Mvc;
 using JKBB_CVGS.Models;
 using JKBB_CVGS.Security;
+using System.Data.SqlClient;
+using System.Configuration;
 
 namespace JKBB_CVGS.Controllers
 {
@@ -26,7 +28,6 @@ namespace JKBB_CVGS.Controllers
                 cartItems.Add(cart.CartID);
             }
             TempData["CheckoutGameIDs"] = cartItems;
-            //ViewBag.cartItems = cartItems;
             return View(carts.ToList());
         }
 
@@ -115,10 +116,8 @@ namespace JKBB_CVGS.Controllers
             base.Dispose(disposing);
         }
         [CustomAuthorize(Roles = "Member")]
-        public ActionResult Checkout()
+        public ActionResult Checkout(string userEmail)
         {
-            //TempData["CheckoutGameIDs"] = GameIDs;
-            //ViewBag.CheckoutGameIDs = GameIDs;
             return View("Checkout");
         }
     }

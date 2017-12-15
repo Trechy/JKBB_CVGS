@@ -1,5 +1,5 @@
 ﻿@model JKBB_CVGS.Models.Cart
-
+@using JKBB_CVGS.Security;
 @{
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -39,5 +39,5 @@
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.CartID }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "Index", new { email = SessionPersister.Email })
 </p>

@@ -8,6 +8,8 @@ using System.Web;
 using System.Web.Mvc;
 using JKBB_CVGS.Models;
 using JKBB_CVGS.Security;
+using System.Data.SqlClient;
+using System.Configuration;
 
 namespace JKBB_CVGS.Controllers
 {
@@ -56,10 +58,10 @@ namespace JKBB_CVGS.Controllers
                 ownedGames.GameID = GameIDs[i];
 
                 db.OwnGames.Add(ownedGames);
+                db.SaveChanges();
             }
-            db.SaveChanges();
-
-            return RedirectToAction("Index", new { userEmail = userEmail });
+            return RedirectToAction("EmptyCart");
+            //return RedirectToAction("Index", new { userEmail = userEmail });
         }
 
         // POST: OwnGame/Create
@@ -153,6 +155,18 @@ namespace JKBB_CVGS.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public ActionResult EmptyCart(string userEmail)
+        {
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["CVGS_Context"].ToString()))
+            {
+                SqlCommand command = new SqlCommand("DELETE FROM Cart WHERE Email = @sqlUserEmail;", connection);
+                command.Parameters.AddWithValue("@sqlUserEmail", userEmail);
+                command.Connection.Open();
+                command.ExecuteNonQuery();
+            }
+            return RedirectToAction("Index", new { userEmail = userEmail });
         }
     }
 }

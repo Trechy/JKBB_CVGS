@@ -68,6 +68,10 @@
         @Html.ActionLink("Add to Cart", "Create", "Cart", new { email = SessionPersister.Email, GameID = Model.GameID}, null)
         @:&nbsp;
     }
-    @Html.ActionLink("Edit", "Edit", "Game", new { id = Model.GameID }) |
+    else
+    {
+        @Html.ActionLink("Edit", "Edit", "Game", new { id = Model.GameID })
+        @:&nbsp;
+    }   
     @Html.ActionLink("Back to List", "Index", "Game")
 </p>

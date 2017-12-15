@@ -28,7 +28,7 @@ namespace JKBB_CVGS.Controllers
         public ActionResult Register(string userEmail, int eventID)
         {
             //ViewBag.Registered = false;
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["Register"].ToString()))
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["CVGS_Context"].ToString()))
             {
                 SqlCommand command = new SqlCommand("INSERT INTO Register (Email, EventID) VALUES(@sqlUserEmail, @sqlEventID); ", connection);
                 command.Parameters.AddWithValue("@sqlUserEmail", userEmail);

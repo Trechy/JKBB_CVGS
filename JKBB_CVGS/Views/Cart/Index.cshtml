@@ -4,7 +4,7 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+@using JKBB_CVGS.Security;
 <h2>Cart</h2>
 
 <table class="table">
@@ -54,4 +54,4 @@
 </table>
 
 
-@Html.ActionLink("Buy", "Checkout", "Cart", new { @class = "btn btn-default" }) 
+@Html.ActionLink("Buy", "Checkout", "Cart", new { userEmail = SessionPersister.Email }, new { @class = "btn btn-default" }) 
