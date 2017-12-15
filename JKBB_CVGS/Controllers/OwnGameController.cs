@@ -59,7 +59,7 @@ namespace JKBB_CVGS.Controllers
             }
             db.SaveChanges();
 
-            return RedirectToAction("Index", new { email = userEmail });
+            return RedirectToAction("Index", new { userEmail = userEmail });
         }
 
         // POST: OwnGame/Create
