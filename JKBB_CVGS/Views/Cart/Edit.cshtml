@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>View</h2>
+<h2>Edit</h2>
 
 @using (Html.BeginForm())
 {
@@ -16,18 +16,13 @@
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.CartID)
+        @Html.HiddenFor(model => model.Email)
+        @Html.HiddenFor(model => model.GameID)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Email, "Email", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Game.Title, "GameTitle", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.TextBoxFor(model => model.Email, new { disabled = "disabled", @readonly = "readonly" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.GameID, "GameID", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(model => model.GameID, new { disabled = "disabled", @readonly = "readonly" })
+                @Html.DisplayFor(model => model.Game.Title)
             </div>
         </div>
 
@@ -48,5 +43,5 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "Index", "Cart",new { email = Model.Email })
 </div>
