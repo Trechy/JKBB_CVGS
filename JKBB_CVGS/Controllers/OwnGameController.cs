@@ -41,12 +41,14 @@ namespace JKBB_CVGS.Controllers
 
         // GET: OwnGame/Create
         [CustomAuthorize(Roles = "Member")]
-        public ActionResult Create(string userEmail, List<int> GameIDs)
+        public ActionResult Create(string userEmail)
         {
             //ViewBag.GameID = GameID;
+            List<int> GameIDs = new List<int>();
+            GameIDs = (List<int>)TempData["CheckoutGameIDs"];
             ViewBag.Email = userEmail;
 
-            for(int i = 0; i < GameIDs.Count; i++)
+            for (int i = 0; i < GameIDs.Count; i++)
             {
                 ViewBag.GameID = GameIDs[i];
                 OwnGame ownedGames = new OwnGame();

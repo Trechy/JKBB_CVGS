@@ -47,7 +47,7 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Purchase" class="btn btn-default" onclick="location.href='@Url.Action("Create", "OwnGameController", new { userEmail = @SessionPersister.Email, GameIDs = ViewBag.CheckoutGameIDs })'" />
+                <input type="button" value="Purchase" class="btn btn-default" onclick="location.href='@Url.Action("Create", "OwnGame", new { userEmail = SessionPersister.Email })'" />
             </div>
         </div>
     </div>

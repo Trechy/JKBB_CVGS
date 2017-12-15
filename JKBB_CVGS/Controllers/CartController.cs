@@ -25,7 +25,8 @@ namespace JKBB_CVGS.Controllers
             {
                 cartItems.Add(cart.CartID);
             }
-            ViewBag.cartItems = cartItems;
+            TempData["CheckoutGameIDs"] = cartItems;
+            //ViewBag.cartItems = cartItems;
             return View(carts.ToList());
         }
 
@@ -114,9 +115,10 @@ namespace JKBB_CVGS.Controllers
             base.Dispose(disposing);
         }
         [CustomAuthorize(Roles = "Member")]
-        public ActionResult Checkout(List<int> GameIDs)
+        public ActionResult Checkout()
         {
-            ViewBag.CheckoutGameIDs = GameIDs;
+            //TempData["CheckoutGameIDs"] = GameIDs;
+            //ViewBag.CheckoutGameIDs = GameIDs;
             return View("Checkout");
         }
     }
