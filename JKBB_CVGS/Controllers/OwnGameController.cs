@@ -41,16 +41,20 @@ namespace JKBB_CVGS.Controllers
 
         // GET: OwnGame/Create
         [CustomAuthorize(Roles = "Member")]
-        public ActionResult Create(string userEmail, int GameID)
+        public ActionResult Create(string userEmail, List<int> GameIDs)
         {
-            ViewBag.GameID = GameID;
+            //ViewBag.GameID = GameID;
             ViewBag.Email = userEmail;
 
-            OwnGame ownedGames = new OwnGame();
-            ownedGames.Email = userEmail;
-            ownedGames.GameID = GameID;
+            for(int i = 0; i < GameIDs.Count; i++)
+            {
+                ViewBag.GameID = GameIDs[i];
+                OwnGame ownedGames = new OwnGame();
+                ownedGames.Email = userEmail;
+                ownedGames.GameID = GameIDs[i];
 
-            db.OwnGames.Add(ownedGames);
+                db.OwnGames.Add(ownedGames);
+            }
             db.SaveChanges();
 
             return RedirectToAction("Index", new { email = userEmail });

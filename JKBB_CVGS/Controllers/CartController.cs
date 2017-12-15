@@ -20,6 +20,12 @@ namespace JKBB_CVGS.Controllers
         public ActionResult Index(string email)
         {
             var carts = db.Carts.Include(c => c.Game).Include(c => c.User).Where(w => w.Email.Contains(email));
+            List<int> cartItems = new List<int>();
+            foreach(Cart cart in carts)
+            {
+                cartItems.Add(cart.CartID);
+            }
+            ViewBag.cartItems = cartItems;
             return View(carts.ToList());
         }
 
@@ -106,6 +112,12 @@ namespace JKBB_CVGS.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+        [CustomAuthorize(Roles = "Member")]
+        public ActionResult Checkout(List<int> GameIDs)
+        {
+            ViewBag.CheckoutGameIDs = GameIDs;
+            return View("Checkout");
         }
     }
 }

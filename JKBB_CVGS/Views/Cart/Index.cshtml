@@ -53,4 +53,5 @@
 
 </table>
 
-@Html.ActionLink("Buy", "Edit", "Cart", new { @class = "btn btn-default" }) 
+
+@Html.ActionLink("Buy", "Checkout", "Cart", new { GameIDs = ViewBag.cartItems }, new { @class = "btn btn-default" }) 
