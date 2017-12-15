@@ -52,7 +52,7 @@ namespace JKBB_CVGS.Controllers
             {
                 return HttpNotFound();
             }
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["Register"].ToString()))
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["CVGS_Context"].ToString()))
             {
                 SqlCommand command = new SqlCommand("SELECT * FROM Register WHERE Email = @sqlUserEmail AND EventID = @sqlEventID; ", connection);
                 command.Parameters.AddWithValue("@sqlUserEmail", userEmail);
