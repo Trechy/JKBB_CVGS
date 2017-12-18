@@ -159,13 +159,21 @@ namespace JKBB_CVGS.Controllers
 
         public ActionResult EmptyCart(string userEmail)
         {
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["CVGS_Context"].ToString()))
+            //List<Cart> cartItems = new List<Cart>();
+            var cartItems = db.Carts.Where(o => o.Email.Contains(userEmail));
+            foreach (Cart singleItem in cartItems)
             {
-                SqlCommand command = new SqlCommand("DELETE FROM Cart WHERE Email = @sqlUserEmail;", connection);
-                command.Parameters.AddWithValue("@sqlUserEmail", userEmail);
-                command.Connection.Open();
-                command.ExecuteNonQuery();
+                Cart cartSingleItem = db.Carts.Find(singleItem.CartID);
+                db.Carts.Remove(cartSingleItem);               
             }
+            db.SaveChanges();
+            //using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["CVGS_Context"].ToString()))
+            //{
+            //    SqlCommand command = new SqlCommand("DELETE FROM Cart WHERE Email = @sqlUserEmail;", connection);
+            //    command.Parameters.AddWithValue("@sqlUserEmail", userEmail);
+            //    command.Connection.Open();
+            //    command.ExecuteNonQuery();
+            //}
             return RedirectToAction("Index", new { userEmail = userEmail });
         }
     }
