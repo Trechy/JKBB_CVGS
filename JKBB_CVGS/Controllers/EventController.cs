@@ -72,8 +72,6 @@ namespace JKBB_CVGS.Controllers
         }
 
         // GET: Event/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
         [CustomAuthorize(Roles = "Employee")]
         public ActionResult Create()
         {
