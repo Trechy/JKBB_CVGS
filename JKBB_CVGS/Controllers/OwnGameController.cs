@@ -10,6 +10,7 @@ using JKBB_CVGS.Models;
 using JKBB_CVGS.Security;
 using System.Data.SqlClient;
 using System.Configuration;
+using JKBB_CVGS.Models.ViewModels;
 
 namespace JKBB_CVGS.Controllers
 {
@@ -43,9 +44,8 @@ namespace JKBB_CVGS.Controllers
 
         // GET: OwnGame/Create
         [CustomAuthorize(Roles = "Member")]
-        public ActionResult Create(string userEmail)
+        public ActionResult Create(Checkout checkout, string userEmail)
         {
-            //ViewBag.GameID = GameID;
             List<int> GameIDs = new List<int>();
             GameIDs = (List<int>)TempData["CheckoutGameIDs"];
             ViewBag.Email = userEmail;
@@ -60,8 +60,7 @@ namespace JKBB_CVGS.Controllers
                 db.OwnGames.Add(ownedGames);
                 db.SaveChanges();
             }
-            return RedirectToAction("EmptyCart");
-            //return RedirectToAction("Index", new { userEmail = userEmail });
+            return RedirectToAction("EmptyCart", new { userEmail = userEmail });
         }
 
         // POST: OwnGame/Create
@@ -81,6 +80,7 @@ namespace JKBB_CVGS.Controllers
 
             ViewBag.GameID = new SelectList(db.Games, "GameID", "Title", ownGame.GameID);
             ViewBag.Email = new SelectList(db.Users, "Email", "Password", ownGame.Email);
+            //return RedirectToAction("EmptyCart");
             return View(ownGame);
         }
 
@@ -159,21 +159,13 @@ namespace JKBB_CVGS.Controllers
 
         public ActionResult EmptyCart(string userEmail)
         {
-            //List<Cart> cartItems = new List<Cart>();
             var cartItems = db.Carts.Where(o => o.Email.Contains(userEmail));
             foreach (Cart singleItem in cartItems)
             {
                 Cart cartSingleItem = db.Carts.Find(singleItem.CartID);
-                db.Carts.Remove(cartSingleItem);               
+                db.Carts.Remove(cartSingleItem);
             }
             db.SaveChanges();
-            //using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["CVGS_Context"].ToString()))
-            //{
-            //    SqlCommand command = new SqlCommand("DELETE FROM Cart WHERE Email = @sqlUserEmail;", connection);
-            //    command.Parameters.AddWithValue("@sqlUserEmail", userEmail);
-            //    command.Connection.Open();
-            //    command.ExecuteNonQuery();
-            //}
             return RedirectToAction("Index", new { userEmail = userEmail });
         }
     }
